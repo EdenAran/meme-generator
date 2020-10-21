@@ -11,8 +11,8 @@ function getCanvas() {
 
 function renderCanvas() {
     updateSettings();
-    const imgIdx = getMeme().selectedImgIdx;
-    const image = getImages()[imgIdx];
+    const imgId = getMeme().selectedImgId;
+    const image = getImgById(imgId);
     drawCanvas(image);
 }
 
@@ -36,12 +36,11 @@ function drawCanvas({ url }) {
     img.src = `${url}`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        drawText(line.txt);
+        drawText(line.txt, line.xCord, line.yCord);
     }
 }
 
 function drawText(text, x = gCanvas.width / 2, y = 100) {
-    console.log(text)
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
 }

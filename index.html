@@ -11,16 +11,24 @@
         <h1>The Memerator</h1>
     </header>   
     <main>
-        <section class="meme-editor">
-            <div class="canvas-container">
+        <section class="meme-editor shrink">
+            <div class="canvas-container hide">
                 <canvas id="meme-canvas" height="400" width="400" ></canvas>
             </div>
-            <div class="controls-container">
+            <div class="controls-container hide">
                 <label for="0">Enter text:</label>
                 <input type="text" name="line0" id="0" onkeyup="onTextChange(this)">
+                <button class="btn close-editor" onclick="hideEditor()">Close</button>
+                <button class="btn increase-font" onclick="onUpdateSize(1)">Increase</button>
+                <button class="btn decrease-font" onclick="onUpdateSize(-1)">Decrease</button>
+                <button class="btn increase-pos" onclick="onUpdatePos(-5)">Up</button>
+                <button class="btn decrease-pos" onclick="onUpdatePos(5)">Down</button>
             </div>
         </section>
-        <section class="gallery"></section>
+        <section class="gallery">
+            <img class="img" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+            <img class="img" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+        </section>
     </main> 
 
     <script src="js/canvas-service.js"></script>
