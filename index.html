@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body onload="init()">
+    <header class="main-header">
+        <h1>The Memerator</h1>
+    </header>   
+    <main>
+        <section class="meme-editor">
+            <div class="canvas-container">
+                <canvas id="meme-canvas" height="400" width="400" ></canvas>
+            </div>
+            <div class="controls-container">
+                <label for="0">Enter text:</label>
+                <input type="text" name="line0" id="0" onkeyup="onTextChange(this)">
+            </div>
+        </section>
+        <section class="gallery"></section>
+    </main> 
+
+    <script src="js/canvas-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/generator-controller.js"></script>
+    <script src="js/gallery-controller.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+*{
+    box-sizing: border-box;
+}
+
+/* BASIC */
+
+body{
+    margin:0;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin:0;
+}
+
+/* LAYOUT */
+
+.main-header{
+    /* width:100px; */
+    height: 100px;
+    background-color: azure;
+    padding: 20px;
+    text-align: center;
+}
+
+.meme-editor{
+    display: flex;
+    justify-content: space-around;
+}
+
+.canvas-container, .controls-container{
+    width:40%;
+}
+
+canvas{
+    border: 1px solid black;
+}
+
+/* COMPONENTS */
+
+/* GENERATOR */
+
+.controls-container{
+    border:1px solid black;
+}
+
+.canvas-container{
+    display: flex;
+    justify-content: center;
+}
