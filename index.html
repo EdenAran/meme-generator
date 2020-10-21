@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body onload="init()">
     <header class="main-header">
-        <h1>The Memerator</h1>
-    </header>   
+        <div class="logo">
+            <h1>The Memerator</h1>
+        </div>
+        <nav class="main-nav">
+            <ul class="nav"></ul>
+        </nav>
+    </header>
     <main>
         <section class="meme-editor shrink">
             <div class="canvas-container hide">
-                <canvas id="meme-canvas" height="400" width="400" ></canvas>
+                <canvas id="meme-canvas" height="400" width="400"></canvas>
             </div>
             <div class="controls-container hide">
                 <label for="0">Enter text:</label>
-                <input type="text" name="line0" id="0" onkeyup="onTextChange(this)">
+                <input type="text" name="line0" id="0" onkeyup="onTextChange(this)" onfocus="onLineSelect(this)">
+                <label for="1">Enter text:</label>
+                <input type="text" name="line1" id="1" onkeyup="onTextChange(this)" onfocus="onLineSelect(this)">
                 <button class="btn close-editor" onclick="hideEditor()">Close</button>
                 <button class="btn increase-font" onclick="onUpdateSize(1)">Increase</button>
                 <button class="btn decrease-font" onclick="onUpdateSize(-1)">Decrease</button>
@@ -29,11 +38,12 @@
             <img class="img" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
             <img class="img" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
         </section>
-    </main> 
+    </main>
 
     <script src="js/canvas-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/generator-controller.js"></script>
     <script src="js/gallery-controller.js"></script>
 </body>
+
 </html>

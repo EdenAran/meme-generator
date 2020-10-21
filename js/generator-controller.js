@@ -11,6 +11,10 @@ function onTextChange({ value }) {
     updateTxt(value);
 }
 
+function onLineSelect({id}){
+    setSelectedTxtIdx(id)
+}
+
 function setInitTxt(initTxt, xCord) {
     const txt = getLine().txt;
     const meme = getMeme();

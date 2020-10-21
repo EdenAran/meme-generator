@@ -16,6 +16,14 @@ var gMeme = {
             color: 'black',
             xCord: 0,
             yCord: 50
+        },
+        {
+            txt: 'Say something else',
+            size: 30,
+            align: 'center',
+            color: 'black',
+            xCord: 0,
+            yCord: 350
         }
     ]
 }
@@ -37,6 +45,10 @@ function getMeme() {
     return gMeme;
 }
 
+function getLines(){
+    return gMeme.lines;
+}
+
 function getLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
 }
@@ -52,10 +64,14 @@ function setFontSize(diff) {
 }
 
 function setInitTxtPosition(xCord) {
-    getLine().xCord = xCord;
+    getLines().forEach(line =>line.xCord = xCord);
 }
 
 function updatePosition(diff) {
     getLine().yCord += diff;
     renderCanvas();
+}
+
+function setSelectedTxtIdx(idx) {
+    gMeme.selectedLineIdx = +idx;
 }

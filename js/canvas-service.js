@@ -32,11 +32,11 @@ function setInitialCanvas(canvas) {
 
 function drawCanvas({ url }) {
     const img = new Image()
-    const line = getLine();
+    const lines = getLines();
     img.src = `${url}`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        drawText(line.txt, line.xCord, line.yCord);
+        lines.forEach(line => drawText(line.txt, line.xCord, line.yCord))
     }
 }
 
