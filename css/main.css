@@ -40,12 +40,6 @@ h6 {
     font-weight: unset;
 }
 
-img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-}
 
 button {
     border: none;
@@ -330,6 +324,13 @@ canvas {
     justify-content: space-around;
 }
 
+.img-container img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 15px;
+}
 /* HELPERS */
 
 /* flex helpers */

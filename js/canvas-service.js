@@ -36,11 +36,35 @@ function drawCanvas({ url }) {
     img.src = `${url}`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        lines.forEach(line => drawText(line.txt, line.xCord, line.yCord))
+        lines.forEach(line => {
+            line.width = gCtx.measureText(line.txt).width;
+            drawText(line.txt, line.xCord, line.yCord)
+        })
     }
 }
 
-function drawText(text, x = gCanvas.width / 2, y = 100) {
+function drawText(text, x, y) {
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+}
+
+function checkTextArea(ev) {
+    const lines = getLines();
+    const { x, y } = getMousePos(ev);
+    const idx = lines.findIndex(line =>
+        (x >= line.xCord - line.width / 2 - 5 && x <= line.xCord + line.width / 2 + 5) && (y <= line.yCord + 5 && y >= line.yCord - line.size - 5)
+    )
+    if (idx === -1) return;
+    setSelectedTxtIdx(idx)
+    setFocus();
+}
+
+function getMousePos(ev) {
+    const rect = gCanvas.getBoundingClientRect(), 
+        scaleX = gCanvas.width / rect.width,    
+        scaleY = gCanvas.height / rect.height;  
+    return {
+        x: (ev.clientX - rect.left) * scaleX,   
+        y: (ev.clientY - rect.top) * scaleY     
+    }
 }

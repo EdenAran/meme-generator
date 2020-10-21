@@ -3,6 +3,7 @@
 function init() {
     const canvas = document.querySelector('#meme-canvas');
     const initTxt = document.querySelector('input.txt')
+    renderImages();
     setInitTxt(initTxt, canvas.height / 2);
     setInitialCanvas(canvas);
 }
@@ -11,13 +12,8 @@ function onTextChange({ value }) {
     updateTxt(value);
 }
 
-function onLineSelect({ id }) {
-    setSelectedTxtIdx(id)
-}
-
 function setInitTxt(initTxt, xCord) {
     const lines = getLines();
-    const meme = getMeme();
     setInitTxtPosition(lines, xCord);
     initTxt.placeholder = lines[0].txt;
 }
@@ -44,10 +40,17 @@ function onUpdatePos(diff) {
     updatePosition(diff);
 }
 
-function onCanvasClick(elCanvas, ev){
-    console.log(elCanvas)
+function onCanvasClick(ev) {
+    checkTextArea(ev);
     console.log(ev)
 }
+
+function setFocus(){
+    document.querySelector('input.txt').focus();
+    document.querySelector('input.txt').value = getLine().txt;
+}
+
+
 
 // function onAddLine() {
 //     createLine();

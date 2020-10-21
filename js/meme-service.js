@@ -1,10 +1,6 @@
 'use strict';
 
-var gKeywords = { 'meme': 12 }
-var gImgs = [
-    { id: 1, url: './imgs/12.jpg', keywords: ['meme'] },
-    { id: 2, url: './imgs/2.jpg', keywords: ['meme'] }
-]
+
 var gMeme = {
     selectedImgId: 0,
     selectedLineIdx: 0,
@@ -15,27 +11,21 @@ var gMeme = {
             align: 'center',
             color: 'black',
             xCord: 0,
-            yCord: 50
+            yCord: 50,
+            width: 0
         },
         {
-            txt: '',
+            txt: 'Something funny',
             size: 30,
             align: 'center',
             color: 'black',
             xCord: 0,
-            yCord: 350
+            yCord: 350,
+            width: 0
         }
     ]
 }
 
-function getImages() {
-    return gImgs;
-}
-
-function getImgById(id) {
-    var img = gImgs.find((img) => img.id === id);
-    return img;
-}
 
 function setSelectedImage(id) {
     gMeme.selectedImgId = +id;
@@ -75,6 +65,8 @@ function updatePosition(diff) {
 function setSelectedTxtIdx(idx) {
     gMeme.selectedLineIdx = +idx;
 }
+
+
 
 // function createLine() {
 //     const yCord = getCanvas().height / 2;
