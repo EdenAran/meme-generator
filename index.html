@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/e2e09dddc5.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="init()">
@@ -20,36 +21,55 @@
 
     </header>
     <main class="main-content">
-        <section class="meme-editor shrink">
+        <section class="meme-editor shrink flex justify-center">
             <div class="canvas-container hide">
-                <canvas id="meme-canvas" height="400" width="400"></canvas>
+                <img src="./imgs/canvas-bg.png" alt="">
+                <canvas id="meme-canvas" height="400" width="400" onclick="onCanvasClick(this, event)"></canvas>
             </div>
             <div class="controls-container hide">
-                <div class="txt-area">
-                    <label for="0">Enter text:</label>
-                    <input class="txt" type="text" name="line0" id="0" onkeyup="onTextChange(this)"
-                        onfocus="onLineSelect(this)">
-                    <label for="1">Enter text:</label>
-                    <input class="txt" type="text" name="line1" id="1" onkeyup="onTextChange(this)"
-                        onfocus="onLineSelect(this)">
+                <input class="txt" type="text" name="line" onkeyup="onTextChange(this)" onfocus="onLineSelect(this)">
+                <button class="pointer btn line-switch">
+                    <img src="./imgs/line-switch.svg" alt="">
+                </button>
+                <button class="pointer btn line-add">
+                    <img src="./imgs/plus.png" alt="">
+                </button>
+                <button class="pointer btn line-delete">
+                    <img src="./imgs/line-delete.svg" alt="">
+                </button>
+                <div class="text-control">
+                    <button class="pointer btn increase-font" onclick="onUpdateSize(1)">
+                        <img src="./imgs/A+.png" alt="">
+                    </button>
+                    <button class="pointer btn decrease-font" onclick="onUpdateSize(-1)">
+                        <img src="./imgs/A-.png" alt="">
+                    </button>
+                    <button class="pointer btn increase-pos" onclick="onUpdatePos(-5)">
+                        <img src="./imgs/up.png" alt="">
+                    </button>
+                    <button class="pointer btn decrease-pos" onclick="onUpdatePos(5)">
+                        <img src="./imgs/down.png" alt="">
+                    </button>
                 </div>
-                <button class="btn close-editor" onclick="hideEditor()">Close</button>
-                <button class="btn increase-font" onclick="onUpdateSize(1)">Increase</button>
-                <button class="btn decrease-font" onclick="onUpdateSize(-1)">Decrease</button>
-                <button class="btn increase-pos" onclick="onUpdatePos(-5)">Up</button>
-                <button class="btn decrease-pos" onclick="onUpdatePos(5)">Down</button>
-                <!-- <button class="btn add-line" onclick="onAddLine()">Add Line</button> -->
+                <div class="social-btns flex space-between">
+                    <button class="pointer share-btn">Share</button>
+                    <button class="pointer download-btn">Download</button>
+                </div>
             </div>
         </section>
         <section class="gallery flex column align-center">
+            <button class="close-editor hide" onclick="hideEditor()">Close</button>
             <nav class="gallery-nav flex align-center space-between">
-                <input type="text" class="gallery-search" placeholder="Search">
+                <div class="search-area">
+                    <input type="text" class="gallery-search" placeholder="Search">
+                    <button type="button" class=" search-btn pointer"></button>
+                </div>
                 <div class="word-search flex align-center justify-center">Word Word Word Word</div>
-                <button class="btn more-words pointer">More</button>
+                <button class=" more-words pointer">More</button>
             </nav>
             <div class="img-container flex ">
-                <img class="img" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
-                <img class="img" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+                <img class="img pointer" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+                <img class="img pointer" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
             </div>
         </section>
     </main>

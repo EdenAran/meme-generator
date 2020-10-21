@@ -18,7 +18,7 @@ var gMeme = {
             yCord: 50
         },
         {
-            txt: 'Say something else',
+            txt: '',
             size: 30,
             align: 'center',
             color: 'black',
