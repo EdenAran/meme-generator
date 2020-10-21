@@ -9,34 +9,48 @@
 </head>
 
 <body onload="init()">
-    <header class="main-header">
-        <div class="logo">
+    <header class="main-header flex align-center space-between">
+        <div class="logo pointer">
             <h1>The Memerator</h1>
         </div>
-        <nav class="main-nav">
-            <ul class="nav"></ul>
-        </nav>
+        <ul class="main-nav clean-list">
+            <li class="nav-gallery pointer">Gallery</li>
+            <li class="nav-about pointer">About</li>
+        </ul>
+
     </header>
-    <main>
+    <main class="main-content">
         <section class="meme-editor shrink">
             <div class="canvas-container hide">
                 <canvas id="meme-canvas" height="400" width="400"></canvas>
             </div>
             <div class="controls-container hide">
-                <label for="0">Enter text:</label>
-                <input type="text" name="line0" id="0" onkeyup="onTextChange(this)" onfocus="onLineSelect(this)">
-                <label for="1">Enter text:</label>
-                <input type="text" name="line1" id="1" onkeyup="onTextChange(this)" onfocus="onLineSelect(this)">
+                <div class="txt-area">
+                    <label for="0">Enter text:</label>
+                    <input class="txt" type="text" name="line0" id="0" onkeyup="onTextChange(this)"
+                        onfocus="onLineSelect(this)">
+                    <label for="1">Enter text:</label>
+                    <input class="txt" type="text" name="line1" id="1" onkeyup="onTextChange(this)"
+                        onfocus="onLineSelect(this)">
+                </div>
                 <button class="btn close-editor" onclick="hideEditor()">Close</button>
                 <button class="btn increase-font" onclick="onUpdateSize(1)">Increase</button>
                 <button class="btn decrease-font" onclick="onUpdateSize(-1)">Decrease</button>
                 <button class="btn increase-pos" onclick="onUpdatePos(-5)">Up</button>
                 <button class="btn decrease-pos" onclick="onUpdatePos(5)">Down</button>
+                <!-- <button class="btn add-line" onclick="onAddLine()">Add Line</button> -->
             </div>
         </section>
-        <section class="gallery">
-            <img class="img" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
-            <img class="img" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+        <section class="gallery flex column align-center">
+            <nav class="gallery-nav flex align-center space-between">
+                <input type="text" class="gallery-search" placeholder="Search">
+                <div class="word-search flex align-center justify-center">Word Word Word Word</div>
+                <button class="btn more-words pointer">More</button>
+            </nav>
+            <div class="img-container flex ">
+                <img class="img" data-id="1" src="./imgs/12.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+                <img class="img" data-id="2" src="./imgs/2.jpg" alt="" onclick="onImgClick(this.dataset.id)">
+            </div>
         </section>
     </main>
 

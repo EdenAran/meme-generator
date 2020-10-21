@@ -45,7 +45,7 @@ function getMeme() {
     return gMeme;
 }
 
-function getLines(){
+function getLines() {
     return gMeme.lines;
 }
 
@@ -63,8 +63,8 @@ function setFontSize(diff) {
     renderCanvas();
 }
 
-function setInitTxtPosition(xCord) {
-    getLines().forEach(line =>line.xCord = xCord);
+function setInitTxtPosition(lines, xCord) {
+    lines.forEach(line => line.xCord = xCord);
 }
 
 function updatePosition(diff) {
@@ -75,3 +75,18 @@ function updatePosition(diff) {
 function setSelectedTxtIdx(idx) {
     gMeme.selectedLineIdx = +idx;
 }
+
+// function createLine() {
+//     const yCord = getCanvas().height / 2;
+//     const xCord = getCanvas().width / 2;
+//     const line = {
+//         txt: '',
+//         size: 30,
+//         align: 'center',
+//         color: 'black',
+//         xCord,
+//         yCord
+//     }
+//     gMeme.lines.push(line);
+//     renderCanvas();
+// }

@@ -2,8 +2,8 @@
 
 function init() {
     const canvas = document.querySelector('#meme-canvas');
-    const initTxt = document.getElementById('0')
-    setInitTxt(initTxt, canvas.height / 2);
+    const initTxts = document.querySelectorAll('input.txt')
+    setInitTxt(initTxts, canvas.height / 2);
     setInitialCanvas(canvas);
 }
 
@@ -11,21 +11,18 @@ function onTextChange({ value }) {
     updateTxt(value);
 }
 
-function onLineSelect({id}){
+function onLineSelect({ id }) {
     setSelectedTxtIdx(id)
 }
 
-function setInitTxt(initTxt, xCord) {
-    const txt = getLine().txt;
+function setInitTxt(initTxts, xCord) {
+    console.log(initTxts)
+    const lines = getLines();
     const meme = getMeme();
-    setInitTxtPosition(xCord);
-    initTxt.placeholder = txt;
-}
-
-function onImgClick(imgId) {
-    showEditor();
-    setSelectedImage(imgId)
-    renderCanvas();
+    setInitTxtPosition(lines, xCord);
+    lines.forEach((line, id) => {
+        initTxts[id].placeholder = line.txt;
+    })
 }
 
 function showEditor() {
@@ -47,3 +44,7 @@ function onUpdateSize(diff) {
 function onUpdatePos(diff) {
     updatePosition(diff);
 }
+
+// function onAddLine() {
+//     createLine();
+// }
