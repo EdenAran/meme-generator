@@ -98,12 +98,12 @@
         <section id="gallery" class="gallery flex column align-center">
             <nav class="gallery-nav flex align-center space-between">
                 <div class="search-area">
-                    <input type="text" class="gallery-search" placeholder="Search">
-                    <button type="button" class=" search-btn pointer"></button>
+                    <input type="text" class="gallery-search" placeholder="Search" oninput="onSearch()">
+                    <button type="button" class="search-btn pointer" onclick="onSearch()"></button>
                 </div>
                 <div class="word-area flex">
-                    <div class="word-search flex align-center justify-center">Word Word Word Word</div>
-                    <button class=" more-words pointer">More</button>
+                    <div class="word-search flex align-center justify-center"></div>
+                    <button class=" more-words pointer" onclick="onMoreWords()">More</button>
                 </div>
             </nav>
             <div class="img-container flex wrap justify-center">
@@ -122,7 +122,6 @@
             <button class="pointer">Submit</button>
         </aside>
     </main> -->
-
         <script src="js/upload-service.js"></script>
         <script src="js/gallery-service.js"></script>
         <script src="js/canvas-service.js"></script>

@@ -614,6 +614,7 @@ canvas {
     .word-search {
         width: 100%;
         max-width: 350px;
+        height: fit-content;
     }
 
     .meme-editor {

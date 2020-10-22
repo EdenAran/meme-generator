@@ -3,6 +3,7 @@
 function init() {
     const canvas = document.querySelector('#meme-canvas');
     renderImages();
+    renderKeywords();
     setInitText(canvas.height / 2);
     setInitialCanvas(canvas);
 }
@@ -106,7 +107,6 @@ function onFillChange({ value }) {
 
 function onMouseDown(ev){
     if(!isDragArea(ev)) return;
-    console.log('s')
     startDrag(ev);
 }
 
