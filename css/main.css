@@ -455,6 +455,7 @@ canvas {
         border-radius: unset;
         margin: 0;
         height: 100px;
+        width:100vw;
     }
 
     .logo {
@@ -496,6 +497,7 @@ canvas {
     }
 
     .gallery {
+        width:100%;
         max-width: 480px;
         height: unset;
         padding: 25px 0;
@@ -503,14 +505,19 @@ canvas {
 
     .word-area,
     .search-area input {
-        width: 450px;
+        width:100%;
+        max-width: 450px;
+    }
+    .word-search{
+        width:100%;
+        max-width:350px;
     }
 
-    .more-words {
-        width: 200px;
+    .meme-editor {
+        flex-direction: column;
+        height: unset;
+        margin: 0 auto;
     }
-
-
     .img-container {
         overflow: hidden;
         margin: 0;
@@ -518,19 +525,16 @@ canvas {
     }
 
     .img-container img {
-        width: 180px;
+        width:100%;
+        max-width: 180px;
         height: 180px;
     }
 
-    .meme-editor {
-        flex-direction: column;
-        height: unset;
-        margin: 0;
-    }
 
     .canvas-container,
     .controls-container {
-        width: 450px;
+        width:100%;
+        max-width: 450px;
         margin: 0;
     }
 
