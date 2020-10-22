@@ -13,15 +13,6 @@ var gMeme = {
             xCord: 0,
             yCord: 50,
             width: 0
-        },
-        {
-            txt: 'Something funny',
-            size: 30,
-            align: 'center',
-            color: 'black',
-            xCord: 0,
-            yCord: 350,
-            width: 0
         }
     ]
 }
@@ -43,7 +34,7 @@ function getLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
 }
 
-function updateTxt(txt) {
+function updateText(txt) {
     getLine().txt = txt;
     renderCanvas();
 }
@@ -53,8 +44,8 @@ function setFontSize(diff) {
     renderCanvas();
 }
 
-function setInitTxtPosition(lines, xCord) {
-    lines.forEach(line => line.xCord = xCord);
+function setInitTextPosition(line, xCord) {
+    line.xCord = xCord;
 }
 
 function updatePosition(diff) {
@@ -62,23 +53,37 @@ function updatePosition(diff) {
     renderCanvas();
 }
 
-function setSelectedTxtIdx(idx) {
+function setSelectedTextIdx(idx) {
     gMeme.selectedLineIdx = +idx;
 }
 
+function createLine() {
+    const numOfLines = gMeme.lines.length;
+    const yCord = (numOfLines === 0) ? 50 :(numOfLines > 1) ? getCanvas().height / 2 : getCanvas().height - 50;
+    const xCord = getCanvas().width / 2;
+    const line = {
+        txt: 'Your text here',
+        size: 30,
+        align: 'center',
+        color: 'black',
+        xCord,
+        yCord
+    }
+    gMeme.lines.push(line);
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    setText(line.txt);
+    renderCanvas();
+}
 
+function switchLines() {
+    const numOfLines = gMeme.lines.length - 1;
+    const currIdx = gMeme.selectedLineIdx;
+    gMeme.selectedLineIdx = (currIdx < numOfLines) ? currIdx + 1 : 0
+    setText();
+}
 
-// function createLine() {
-//     const yCord = getCanvas().height / 2;
-//     const xCord = getCanvas().width / 2;
-//     const line = {
-//         txt: '',
-//         size: 30,
-//         align: 'center',
-//         color: 'black',
-//         xCord,
-//         yCord
-//     }
-//     gMeme.lines.push(line);
-//     renderCanvas();
-// }
+function deleteLine(){
+    gMeme.lines.splice(gMeme.selectedLineIdx--, 1);
+    renderCanvas();
+    setText();
+}

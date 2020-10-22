@@ -22,6 +22,7 @@
 
 html {
     font-family: poppins, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -54,10 +55,11 @@ input {
 
 /* LAYOUT */
 
+
 .main-header {
     height: 73px;
     margin: 15px auto;
-    width: 1257px;
+    max-width: 1257px;
 }
 
 
@@ -94,12 +96,19 @@ input {
     font-size: 1.375rem;
 }
 
-.main-nav li {
+.hamb-btn{
+    width:40px;
+    display:none;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: inherit;
     font-size: 1.3125rem;
     padding: 5px 21px;
 }
 
-.main-nav li:hover {
+.main-nav a:hover {
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
     background-color: #fefefe;
@@ -124,7 +133,7 @@ input {
     height: 546px;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: 60px repeat(5, 1fr);
     grid-gap: 20px;
     padding: 25px 40px;
     box-shadow: 1px 5px 0 rgba(187, 196, 209, 0.11), inset 0 5px 0 rgba(255, 255, 255, 0.11);
@@ -141,7 +150,7 @@ input {
     border: none;
     text-align: center;
     background-color: #ebeef3;
-    grid-row: span 2;
+    grid-row: span 1;
     grid-column: span 9;
 }
 
@@ -198,9 +207,9 @@ input {
     padding: 14px;
 }
 
-.social-btns{
+.social-btns {
     grid-column: span 9;
-    font-size:1.3125rem;
+    font-size: 1.3125rem;
 }
 
 .share-btn {
@@ -237,10 +246,10 @@ input {
     position: relative;
 }
 
-.canvas-container img{
-    width:950px;
-    height:950px;
-    left:0;
+.canvas-container img {
+    width: 950px;
+    height: 950px;
+    left: 0;
     position: absolute;
     z-index: -1;
     left: -220px;
@@ -300,7 +309,7 @@ canvas {
     height: 50px;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border-radius: 25px;
-    background-color: rgba(135, 137, 141, 0.4);
+    background-color: rgba(135, 137, 141);
     color: #fefefe
 }
 
@@ -321,16 +330,16 @@ canvas {
     overflow-y: scroll;
     width: 100%;
     padding-inline-start: 32px;
-    justify-content: space-around;
 }
 
-.img-container img{
+.img-container img {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
     margin: 15px;
 }
+
 /* HELPERS */
 
 /* flex helpers */
@@ -382,4 +391,154 @@ canvas {
 
 .pointer:active {
     transform: scale(0.98);
+}
+
+/* MEDIUM */
+@media (max-width: 1260px) {
+    .gallery {
+        max-width: 800px;
+    }
+
+    .gallery-nav {
+        flex-direction: column;
+    }
+
+    .search-area input {
+        width: 750px;
+    }
+
+    .word-area {
+        width: 700px;
+        align-items: center;
+        justify-content: center;
+        padding-top: 22px;
+    }
+
+    .word-search {
+        width: 700px;
+        margin-inline-end: 14px;
+    }
+
+    .img-container {
+        padding: 0 15px;
+    }
+
+    .controls-container {
+        width: 450px;
+        height: 450px;
+    }
+
+    .controls-container .social-btns button {
+        width: 180px;
+    }
+
+    .canvas-container {
+        margin-inline-end: 10px;
+        width: 450px;
+        height: 450px;
+    }
+}
+
+/* SMALL */
+@media (max-width: 840px) {
+    html {
+        font-size: 20px;
+    }
+
+    .main-header {
+        padding: 0 50px;
+        position: relative;
+        border-radius: unset;
+        margin: 0;
+        height: 100px;
+    }
+
+    .logo {
+        width: 100%;
+    }
+
+    .hamb-btn{
+        right: 30px;
+        position: absolute;
+        display: block;
+        transition: transform .4s;
+    }
+
+    .main-nav {
+        position: fixed;
+        width: 100%;
+        flex-direction: column;
+        top: 100px;
+        right: 0;
+        height: 100vh;
+        z-index: 10;
+        background: linear-gradient(-86deg, rgba(51, 190, 109) 0%, rgba(12, 153, 185) 100%);
+        text-align: center;
+        justify-content: start;
+        transition: .6s;
+    }
+    
+    .main-nav li {
+        transition: .6s;
+        height: 100px;
+    }
+
+    .main-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .gallery {
+        max-width: 480px;
+        height: unset;
+        padding: 25px 0;
+    }
+
+    .word-area,
+    .search-area input {
+        width: 450px;
+    }
+
+    .more-words {
+        width: 200px;
+    }
+
+
+    .img-container {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .img-container img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .meme-editor {
+        flex-direction: column;
+        height: unset;
+        margin: 0;
+    }
+
+    .canvas-container,
+    .controls-container {
+        width: 450px;
+        margin: 0;
+    }
+
+    .shrink-sm {
+        height: 0 !important;
+    }
+
+    .hide-sm {
+        display: none !important;
+    }
+
+    .hamb-open{
+        transform: rotate(270deg);
+    }
 }

@@ -10,14 +10,12 @@ function getCanvas() {
 
 
 function renderCanvas() {
-    updateSettings();
     const imgId = getMeme().selectedImgId;
-    const image = getImgById(imgId);
+    const image = getImageById(imgId);
     drawCanvas(image);
 }
 
-function updateSettings() {
-    const line = getLine();
+function updateTextSettings(line) {
     gCtx.strokeStyle = line.color;
     gCtx.font = `${line.size}px ${gFont}`
     gCtx.textAlign = line.align;
@@ -37,6 +35,7 @@ function drawCanvas({ url }) {
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         lines.forEach(line => {
+            updateTextSettings(line);
             line.width = gCtx.measureText(line.txt).width;
             drawText(line.txt, line.xCord, line.yCord)
         })
@@ -55,7 +54,7 @@ function checkTextArea(ev) {
         (x >= line.xCord - line.width / 2 - 5 && x <= line.xCord + line.width / 2 + 5) && (y <= line.yCord + 5 && y >= line.yCord - line.size - 5)
     )
     if (idx === -1) return;
-    setSelectedTxtIdx(idx)
+    setSelectedTextIdx(idx)
     setFocus();
 }
 

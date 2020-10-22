@@ -2,20 +2,20 @@
 
 function init() {
     const canvas = document.querySelector('#meme-canvas');
-    const initTxt = document.querySelector('input.txt')
     renderImages();
-    setInitTxt(initTxt, canvas.height / 2);
+    setInitText(canvas.height / 2);
     setInitialCanvas(canvas);
 }
 
-function onTextChange({ value }) {
-    updateTxt(value);
+function onTextChange() {
+    const elTxt = document.querySelector('input.txt')
+    updateText(elTxt.value);
 }
 
-function setInitTxt(initTxt, xCord) {
-    const lines = getLines();
-    setInitTxtPosition(lines, xCord);
-    initTxt.placeholder = lines[0].txt;
+function setInitText(xCord) {
+    const line = getLine();
+    setInitTextPosition(line, xCord);
+    setText(line.txt);
 }
 
 function showEditor() {
@@ -42,7 +42,6 @@ function onUpdatePos(diff) {
 
 function onCanvasClick(ev) {
     checkTextArea(ev);
-    console.log(ev)
 }
 
 function setFocus(){
@@ -50,8 +49,26 @@ function setFocus(){
     document.querySelector('input.txt').value = getLine().txt;
 }
 
+function onAddLine() {
+    createLine();
+}
 
+function onSwitchLines(){
+    switchLines();
+}
 
-// function onAddLine() {
-//     createLine();
-// }
+function setText(){
+    const txt = (getLine()) ? getLine().txt : '';
+    document.querySelector('input.txt').value = txt;
+}
+
+function onDeleteLine(){
+    deleteLine();
+}
+
+function onHambClick(){
+    document.querySelector('.hamb-btn').classList.toggle('hamb-open');
+    document.querySelector('.main-nav').classList.toggle('shrink-sm')
+    document.querySelectorAll('.main-nav li').forEach(el => el.classList.toggle('shrink-sm'))
+    document.querySelectorAll('.main-nav li a').forEach(el => el.classList.toggle('hide-sm'))
+}

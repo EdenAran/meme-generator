@@ -8,7 +8,7 @@ function getImages() {
     return gImgs;
 }
 
-function getImgById(id) {
+function getImageById(id) {
     var img = gImgs.find((img) => img.id === id);
     return img;
 }

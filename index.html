@@ -14,9 +14,10 @@
         <div class="logo pointer">
             <h1>The Memerator</h1>
         </div>
-        <ul class="main-nav clean-list">
-            <li class="nav-gallery pointer">Gallery</li>
-            <li class="nav-about pointer">About</li>
+        <img class="hamb-btn pointer" src="./imgs/hamburger.svg" alt="" onclick="onHambClick()">
+        <ul class="main-nav clean-list shrink-sm">
+            <li class="nav-gallery pointer shrink-sm"><a href="#" class="hide-sm">Gallery</a></li>
+            <li class="nav-about pointer shrink-sm"><a href="#" class="hide-sm">About</a></li>
         </ul>
 
     </header>
@@ -27,14 +28,14 @@
                 <canvas id="meme-canvas" height="400" width="400" onclick="onCanvasClick(event)"></canvas>
             </div>
             <div class="controls-container hide">
-                <input class="txt" type="text" name="line" onkeyup="onTextChange(this)">
-                <button class="pointer btn line-switch">
+                <input class="txt" type="text" name="line" onkeyup="onTextChange()" onclick="this.setSelectionRange(0, this.value.length)">
+                <button class="pointer btn line-switch" onclick="onSwitchLines()">
                     <img src="./imgs/line-switch.svg" alt="">
                 </button>
-                <button class="pointer btn line-add">
+                <button class="pointer btn line-add" onclick="onAddLine()">
                     <img src="./imgs/plus.png" alt="">
                 </button>
-                <button class="pointer btn line-delete">
+                <button class="pointer btn line-delete" onclick="onDeleteLine()">
                     <img src="./imgs/line-delete.svg" alt="">
                 </button>
                 <div class="text-control">
@@ -50,6 +51,7 @@
                     <button class="pointer btn decrease-pos" onclick="onUpdatePos(5)">
                         <img src="./imgs/down.png" alt="">
                     </button>
+
                 </div>
                 <div class="social-btns flex space-between">
                     <button class="pointer share-btn">Share</button>
@@ -64,8 +66,10 @@
                     <input type="text" class="gallery-search" placeholder="Search">
                     <button type="button" class=" search-btn pointer"></button>
                 </div>
-                <div class="word-search flex align-center justify-center">Word Word Word Word</div>
-                <button class=" more-words pointer">More</button>
+                <div class="word-area flex">
+                    <div class="word-search flex align-center justify-center">Word Word Word Word</div>
+                    <button class=" more-words pointer">More</button>
+                </div>
             </nav>
             <div class="img-container flex wrap justify-center">
             </div>

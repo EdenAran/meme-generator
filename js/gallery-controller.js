@@ -5,6 +5,7 @@ function onImgClick(imgId) {
     showEditor();
     setSelectedImage(imgId)
     renderCanvas();
+    document.querySelector('.meme-editor').scrollIntoView();
 }
 
 function renderImages(){
