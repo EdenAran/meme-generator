@@ -96,9 +96,9 @@ input {
     font-size: 1.375rem;
 }
 
-.hamb-btn{
-    width:40px;
-    display:none;
+.hamb-btn {
+    width: 40px;
+    display: none;
 }
 
 .main-nav a {
@@ -280,7 +280,6 @@ canvas {
 
 .search-area {
     position: relative;
-
 }
 
 .gallery-search {
@@ -304,13 +303,18 @@ canvas {
     top: 0.875rem;
 }
 
+.word-area {
+    align-items: center;
+}
+
 .word-search {
     width: 536px;
     height: 50px;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border-radius: 25px;
     background-color: rgba(135, 137, 141);
-    color: #fefefe
+    color: #fefefe;
+    margin-inline-end: 20px;
 }
 
 .more-words {
@@ -457,7 +461,7 @@ canvas {
         width: 100%;
     }
 
-    .hamb-btn{
+    .hamb-btn {
         right: 30px;
         position: absolute;
         display: block;
@@ -477,7 +481,7 @@ canvas {
         justify-content: start;
         transition: .6s;
     }
-    
+
     .main-nav li {
         transition: .6s;
         height: 100px;
@@ -538,7 +542,7 @@ canvas {
         display: none !important;
     }
 
-    .hamb-open{
+    .hamb-open {
         transform: rotate(270deg);
     }
 }
