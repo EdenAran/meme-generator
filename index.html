@@ -19,12 +19,16 @@
             <li class="nav-gallery pointer shrink-sm"><a href="#gallery" class="hide-sm"
                     onclick="ontoggleMenu()">Gallery</a></li>
             <li class="nav-about pointer shrink-sm"><a href="#" class="hide-sm">About</a></li>
+            <li class="nav-saved pointer shrink-sm" onclick="ontoggleMenu()"><a href="#" class="hide-sm">Memes</a></li>
         </ul>
     </header>
     <header class="header-fill"></header>
     <main class="main-content">
         <section class="meme-editor shrink flex justify-center">
             <div class="canvas-container hide">
+                <a class="pointer save-btn" onclick="onSave()">
+                    Save
+                </a>
                 <img src="./imgs/canvas-bg.png" alt="">
                 <canvas id="meme-canvas" height="400" width="400" onclick="onCanvasClick(event)"
                     onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDragText(event)"></canvas>
@@ -66,6 +70,7 @@
                         </button>
                     </div>
                     <div class="text-control-bottom flex space-around">
+                        <button class="close-editor pointer hide" onclick="hideEditor()">X</button>
                         <select value="Impact" onchange="onFontSelect(this)">
                             <option value="Impact">Impact</option>
                             <option value="Ariel">Ariel</option>
@@ -93,7 +98,6 @@
                     </a>
                 </div>
             </div>
-            <button class="close-editor pointer hide" onclick="hideEditor()">X</button>
         </section>
         <section id="gallery" class="gallery flex column align-center">
             <nav class="gallery-nav flex align-center space-between">
@@ -114,6 +118,7 @@
             <modal class="share-container">
             </modal>
         </aside>
+        <section class="meme-container"></section>
         <!-- <aside class="download-modal flex space-around align-center column">
             <label>
                 Choose a name
@@ -122,10 +127,12 @@
             <button class="pointer">Submit</button>
         </aside>
     </main> -->
+        <script src="js/storage-service.js"></script>
         <script src="js/upload-service.js"></script>
         <script src="js/gallery-service.js"></script>
         <script src="js/canvas-service.js"></script>
         <script src="js/meme-service.js"></script>
+        <script src="js/saved-controller.js"></script>
         <script src="js/generator-controller.js"></script>
         <script src="js/gallery-controller.js"></script>
 </body>
