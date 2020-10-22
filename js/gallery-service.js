@@ -22,3 +22,4 @@ function generateImages(){
 function generateImage(id){
     return{ id, url: `./imgs/${id}.jpg`, keywords: ['meme'] }
 }
+
