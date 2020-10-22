@@ -534,7 +534,7 @@ canvas {
     .canvas-container,
     .controls-container {
         width:100%;
-        max-width: 450px;
+        width: 450px;
         margin: 0;
     }
 
