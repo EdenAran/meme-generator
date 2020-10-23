@@ -3,13 +3,19 @@
 const STORAGE_KEY = 'memes'
 var gSaved = {
     selectedMemeId: 0,
-    data: [],
+    savedData: [],
     memes: []
 }
 
 function setSavedMemes() {
     gSaved = loadFromStorage(STORAGE_KEY);
-    if (!gSaved.data || !gSaved.data.length) return;
+    if (!gSaved || !gSaved.length) {
+        gSaved = {
+            selectedMemeId: 0,
+            savedData: [],
+            memes: []
+        }
+    };
     gSaved.memes = gSaved.data.map((data, idx) => ({ id: idx, 'url': `${data}` }))
     renderImages(true);
 }
@@ -21,23 +27,12 @@ function getSavedMemeById(id) {
     return gSaved.memes.find(meme => meme.id === id);
 }
 
-function loadSavedMemes() {
-    const savedDatas = loadFromStorage(STORAGE_KEY);
-    return savedDatas.map((data) => {
-        let img = new Image;
-        img.src = data;
-        img.classList.add('pointer');
-        img.onclick = () => onImgClick(img, true);
-        return img;
-    })
-}
-
 function saveMeme() {
-        const canvas = getCanvas();
-        if (!gSaved.data) gSaved.data = [];
-        gSaved.data.push(canvas.toDataURL());
-        saveMemesToStorage();
-        renderCanvas();
+    const canvas = getCanvas();
+    if (!gSaved.savedData || !gSaved.savedData.length) gSaved.savedData = [];
+    gSaved.savedData.push(canvas.toDataURL());
+    saveMemesToStorage();
+    renderCanvas();
 }
 
 function deleteSavedMeme(id) {
@@ -52,14 +47,14 @@ function saveMemesToStorage() {
 
 }
 
-function setSavedId(id){
+function setSavedId(id) {
     gSaved.selectedMemeId = id;
 }
 
-function getSavedMemeId(){
+function getSavedMemeId() {
     return gSaved.selectedMemeId;
 }
 
-function setIsSaved(isSaved){
+function setIsSaved(isSaved) {
     getMeme().isSaved = isSaved;
 }

@@ -111,7 +111,6 @@ function setFont(font) {
 }
 
 function resetText() {
-    console.log(gMeme.isSaved)
     gMeme.lines = (gMeme.isSaved) ? [] : [
         {
             txt: 'Say something funny',
