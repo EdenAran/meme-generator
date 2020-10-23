@@ -2,6 +2,7 @@
 
 
 var gMeme = {
+    isSaved: false,
     selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [
@@ -93,13 +94,13 @@ function deleteLine() {
     setText();
 }
 
-function toggleStroke(){
+function toggleStroke() {
     const line = getLine();
     line.isStroke = !line.isStroke;
     renderCanvas();
 }
 
-function setColor(color){
+function setColor(color) {
     getLine().color = color;
     renderCanvas();
 }
@@ -107,4 +108,22 @@ function setColor(color){
 function setFont(font) {
     getLine().font = font;
     renderCanvas();
+}
+
+function resetText() {
+    console.log(gMeme.isSaved)
+    gMeme.lines = (gMeme.isSaved) ? [] : [
+        {
+            txt: 'Say something funny',
+            size: 30,
+            align: 'center',
+            color: 'white',
+            font: 'Impact',
+            isStroke: true,
+            xCord: gCanvas.width / 2,
+            yCord: 50,
+            width: 0
+        }
+    ];
+    gMeme.selectedLineIdx = 0;
 }

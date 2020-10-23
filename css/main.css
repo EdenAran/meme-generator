@@ -47,13 +47,14 @@ button {
     border: none;
     outline: none;
     font-size: unset;
+    background-color: transparent;
 }
 
 input {
     outline: none;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -77,7 +78,8 @@ a{
     width: 40%;
 }
 
-.gallery {
+.gallery,
+.saved {
     margin-bottom: 10px;
 }
 
@@ -176,7 +178,6 @@ a{
 
 .controls-container .btn {
     padding: 0;
-    background-color: transparent;
 }
 
 .line-switch {
@@ -295,7 +296,6 @@ canvas {
     top: 15px;
     right: 10px;
     color: white;
-    background-color: transparent;
 }
 
 .save-btn {
@@ -350,7 +350,6 @@ canvas {
     width: 29px;
     height: 30px;
     background-image: url('../imgs/search-btn.svg');
-    background-color: transparent;
     position: absolute;
     right: 1.625rem;
     top: 0.875rem;
@@ -400,14 +399,62 @@ canvas {
     margin: 15px;
 }
 
+.gallery .delete-btn {
+    display: none;
+}
+
 /* SAVED MEMES */
-.meme-container {
+.saved {
     margin: 40px auto;
     padding: 25px 13px 0 25px;
     width: 1243px;
     border-radius: 10px;
     background-color: #383b42;
     height: 100%;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.saved span {
+    position: relative;
+    height: fit-content
+}
+
+.saved img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+.saved span .delete-btn {
+    display: none;
+    z-index: 2;
+    position: absolute;
+    color: rgb(148, 3, 3);
+    font-size: 1.2rem;
+    font-weight: bold;
+    top: 15px;
+    right: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    text-align:center;
+    text-shadow: 1px 1px rgb(0, 0, 0);
+    /* transition: .4s; */
+}
+
+.saved .delete-btn:hover,
+.saved img:hover+.delete-btn {
+    display: flex;
+}
+
+.saved .delete-btn:hover{
+    color: rgb(219, 2, 2);
+    font-size: 1.4rem;
 }
 
 /* MODALS */
@@ -434,13 +481,11 @@ canvas {
     font-size: 0.8em;
     top: 0.2em;
     right: 0.2em;
-    background-color: transparent;
     text-shadow: 1px 1px #000000;
 }
 
 .share-container .facebook-share {
     border-radius: 25px;
-    background-color: transparent;
 }
 
 .share-container .facebook-share a {
@@ -527,7 +572,7 @@ canvas {
 @media (max-width: 1260px) {
 
     .gallery,
-    .meme-container {
+    .saved {
         max-width: 800px;
     }
 
@@ -632,7 +677,7 @@ canvas {
     }
 
     .gallery,
-    .meme-container {
+    .saved {
         width: 100%;
         max-width: 480px;
         height: unset;

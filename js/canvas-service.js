@@ -9,13 +9,6 @@ function getCanvas() {
     return gCanvas;
 }
 
-
-function renderCanvas(isHighlight) {
-    const imgId = getMeme().selectedImgId;
-    const image = getImageById(imgId);
-    drawCanvas(image, isHighlight);
-}
-
 function updateTextSettings(line) {
     gCtx.font = `${line.size}px ${line.font}`
     gCtx.textAlign = line.align;
@@ -25,15 +18,15 @@ function setInitialCanvas(canvas) {
     gCanvas = canvas;
     gCtx = gCanvas.getContext('2d');
     gCtx.fillStyle = '#ffffff';
-
 }
 
 function clearCanvas() {
+    gCtx.globalAlpha = 1;
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.length);
 }
 
 function drawCanvas({ url }, isHighlight = true) {
-    const img = new Image()
+    const img = new Image();
     const lines = getLines();
     clearCanvas();
     img.src = `${url}`;

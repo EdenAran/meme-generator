@@ -28,7 +28,7 @@ var gImgs = [
     { id: 15, url: `./imgs/15.jpg`, keywords: ['meme', 'LOTR', 'one', 'simply', 'mordor'] },
     { id: 16, url: `./imgs/16.jpg`, keywords: ['meme', 'picard', 'embarrassed', 'smile', 'star', 'trek'] },
     { id: 17, url: `./imgs/17.jpg`, keywords: ['meme', 'v', 'putin', 'serious'] },
-    { id: 18, url: `./imgs/18.jpg`, keywords: ['meme', 'toy story', 'buzz', 'lightyear', 'woody', 'sad', 'happy'] },
+    { id: 18, url: `./imgs/18.jpg`, keywords: ['meme', 'toy story', 'buzz', 'lightyear', 'woody', 'sad', 'happy'] }
 ];
 
 function getImages() {
