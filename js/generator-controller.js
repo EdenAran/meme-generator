@@ -6,6 +6,7 @@ function init() {
     renderKeywords();
     setInitText(canvas.width / 2);
     setInitialCanvas(canvas);
+    setSavedMemes();
 }
 
 function renderImages(isSaved = false) {
@@ -37,11 +38,11 @@ function renderCanvas(isHighlight = true) {
 
 function onImgClick(imgId, isSaved = false) {
     showEditor();
-    document.querySelector('.meme-editor').scrollIntoView();
     setIsSaved(isSaved);
     resetText();
     setSelectedImage(imgId);
     renderCanvas();
+    document.querySelector('.meme-editor').scrollIntoView();
 }
 
 function onTextChange() {
