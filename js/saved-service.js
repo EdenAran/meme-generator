@@ -20,6 +20,7 @@ function setSavedMemes() {
 function getSavedMemes() {
     return gSaved.memes;
 }
+
 function getSavedMemeById(id) {
     return gSaved.memes.find(meme => meme.id === id);
 }
@@ -46,3 +47,4 @@ function saveMemesToStorage() {
 function setIsSaved(isSaved) {
     getMeme().isSaved = isSaved;
 }
+

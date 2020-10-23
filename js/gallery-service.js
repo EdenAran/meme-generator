@@ -36,8 +36,8 @@ function getImages() {
 }
 
 function getImageById(id) {
-    var img = gImgs.find((img) => img.id === id);
-    return img;
+    return gImgs.find((img) => img.id === id);
+
 }
 
 function generateImages() {

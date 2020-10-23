@@ -3,7 +3,8 @@
 var gCanvas;
 var gCtx;
 var gIsStroke = true;
-var gIsTextSelected = false;
+var gIsDragText = false;
+var gIsDragSticker = false;
 
 function getCanvas() {
     return gCanvas;
@@ -28,6 +29,7 @@ function clearCanvas() {
 function drawCanvas({ url }, isHighlight = true) {
     const img = new Image();
     const lines = getLines();
+    const stickers = getStickers();
     clearCanvas();
     img.src = `${url}`;
     img.onload = () => {
@@ -38,6 +40,11 @@ function drawCanvas({ url }, isHighlight = true) {
             line.width = gCtx.measureText(line.txt).width;
             gCtx.fillStyle = line.color;
             drawText(line.txt, line.xCord, line.yCord, line.isStroke)
+        })
+        stickers.forEach(sticker => {
+            let stickerImg = new Image();
+            stickerImg.src = sticker.url;
+            gCtx.drawImage(stickerImg, sticker.xCord, sticker.yCord, 70, 70)
         })
     }
 }
@@ -51,11 +58,17 @@ function isTextArea(ev) {
     return !(getActiveTextIdx(ev) === -1);
 }
 
+function isStickerArea(ev) {
+    return !(getActiveStickerIdx(ev) === -1);
+}
+
 function textTouch(ev) {
-    if (!isTextArea(ev)) return;
-    setSelectedTextIdx(getActiveTextIdx(ev));
-    setFocus();
-    renderCanvas();
+    if (isTextArea(ev)) {
+        setSelectedTextIdx(getActiveTextIdx(ev));
+        setFocus();
+        renderCanvas();
+    } else if (isStickerArea(ev)) setSelectedStickerIdx(getActiveStickerIdx(ev));
+    return;
 }
 
 function getActiveTextIdx(ev) {
@@ -72,6 +85,14 @@ function getActiveTextIdx(ev) {
                 return (x >= line.xCord - line.width - 5 && x <= line.xCord + line.width + 5) && (y <= line.yCord + 5 && y >= line.yCord - line.size - 5)
         }
     }
+    )
+}
+
+function getActiveStickerIdx(ev) {
+    const stickers = getStickers();
+    const { x, y } = getMousePos(ev);
+    return stickers.findIndex(sticker => ((x >= sticker.xCord - 5 && x <= sticker.xCord + 75) &&
+        (y >= sticker.yCord - 5 && y <= sticker.yCord + 75))
     )
 }
 
@@ -107,6 +128,7 @@ function setAlign(align) {
 
 function highlightText(isHighlight) {
     const line = getLine();
+    if(!line) return;
     const length = gCanvas.width;
     gCtx.beginPath()
     gCtx.fillStyle = "#ffffff";
@@ -123,23 +145,35 @@ function downloadCanvas(elLink) {
 
 function isDragArea(ev) {
     const line = getLine();
+    if(!line) return;
     const { y } = getMousePos(ev);
     return (y <= line.yCord + 10 && y >= line.yCord - line.size - 10)
 }
 
-function startDrag() {
-    gIsTextSelected = true;
+function startDrag(isSticker) {
+    if (!isSticker) gIsDragText = true;
+    else gIsDragSticker = true;
 }
 
 function releaseDrag() {
-    gIsTextSelected = false;
+    gIsDragText = false;
+    gIsDragSticker = false;
 }
 
 function dragText(ev) {
-    if (!gIsTextSelected) return;
+    if (!gIsDragText) return;
     const line = getLine();
     const { x, y } = getMousePos(ev);
     line.xCord = x;
     line.yCord = y;
+    renderCanvas();
+}
+
+function dragSticker(ev) {
+    if (!gIsDragSticker) return;
+    const sticker = getSticker();
+    const { x, y } = getMousePos(ev);
+    sticker.xCord = x - 35;
+    sticker.yCord = y - 35;
     renderCanvas();
 }

@@ -7,6 +7,7 @@ function init() {
     setInitText(canvas.width / 2);
     setInitialCanvas(canvas);
     setSavedMemes();
+    renderStickers();
 }
 
 function renderImages(isSaved = false) {
@@ -36,10 +37,19 @@ function renderCanvas(isHighlight = true) {
     drawCanvas(image, isHighlight);
 }
 
+function renderStickers() {
+    generateStickers();
+    const stickers = getStickersForDisplay();
+    var strHTML = stickers.map(sticker => `
+    <img class="pointer" src="./imgs/stickers/${sticker.id}.png" onclick="onAddSticker(${sticker.id})">
+    `).join('');
+    document.querySelector('.sticker-container').innerHTML = strHTML;
+}
+
 function onImgClick(imgId, isSaved = false) {
     showEditor();
     setIsSaved(isSaved);
-    resetText();
+    resetGenerator();
     setSelectedImage(imgId);
     renderCanvas();
     document.querySelector('.meme-editor').scrollIntoView();
@@ -122,16 +132,21 @@ function onFillChange({ value }) {
 }
 
 function onMouseDown(ev) {
-    if (!isDragArea(ev)) return;
-    startDrag(ev);
+    if (isDragArea(ev)) startDrag(false);
+    else if (isStickerArea(ev)) startDrag(true);
 }
 
 function onMouseUp() {
     releaseDrag();
 }
 
-function onDragText(ev) {
+function onDrag(ev) {
     dragText(ev);
+    dragSticker(ev);
+}
+
+function onAddSticker(id){
+    addSticker(id);
 }
 
 function onSearch() {
@@ -159,6 +174,7 @@ function onDeleteMeme(id) {
     deleteSavedMeme(id);
 }
 
+
 function onNavClick(target) {
     hideEditor();
     const elSections = document.querySelectorAll('.container');
@@ -172,7 +188,6 @@ function showEditor() {
     document.querySelector('.meme-editor').classList.remove('shrink');
     document.querySelector('.canvas-container').classList.remove('hide');
     document.querySelector('.controls-container').classList.remove('hide');
-    // document.querySelector('.close-editor').classList.remove('hide');
     document.querySelectorAll('.container').forEach(el => el.classList.add('hide'));
 }
 
@@ -180,7 +195,6 @@ function hideEditor() {
     document.querySelector('.meme-editor').classList.add('shrink');
     document.querySelector('.canvas-container').classList.add('hide');
     document.querySelector('.controls-container').classList.add('hide');
-    // document.querySelector('.close-editor').classList.add('hide');
 }
 
 function ontoggleMenu() {

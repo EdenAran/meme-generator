@@ -1,5 +1,6 @@
 'use strict';
 
+const NUM_OF_STICKERS = 5;
 
 var gMeme = {
     isSaved: false,
@@ -17,9 +18,15 @@ var gMeme = {
             yCord: 50,
             width: 0
         }
-    ]
+    ],
+    stickers: [],
+    selectedStickerIdx: 0
 }
 
+var gStickers = {
+    stickers: [],
+    stickerDisplayIdx: 0
+}
 
 function setSelectedImage(id) {
     gMeme.selectedImgId = +id;
@@ -89,7 +96,8 @@ function switchLines() {
 }
 
 function deleteLine() {
-    gMeme.lines.splice(gMeme.selectedLineIdx--, 1);
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    gMeme.selectedLineIdx = 0;
     renderCanvas();
     setText();
 }
@@ -110,7 +118,7 @@ function setFont(font) {
     renderCanvas();
 }
 
-function resetText() {
+function resetGenerator() {
     gMeme.lines = (gMeme.isSaved) ? [] : [
         {
             txt: 'Say something funny',
@@ -125,4 +133,57 @@ function resetText() {
         }
     ];
     gMeme.selectedLineIdx = 0;
+    gMeme.stickers = [];
+    gMeme.selectedStickerIdx = 0;
+}
+
+
+
+function generateStickers() {
+    var stickers = [];
+    const canvas = getCanvas();
+    for (let i = 1; i <= 20; i++) {
+        stickers.push({
+            id: i,
+            url: `./imgs/stickers/${i}.png`,
+            xCord: canvas.width / 2 - 35,
+            yCord: canvas.height / 2 - 35
+        })
+    }
+    gStickers.stickers = stickers;
+}
+
+function getStickersForDisplay() {
+    const startIdx = gStickers.stickerDisplayIdx * NUM_OF_STICKERS;
+    return gStickers.stickers.slice(startIdx, NUM_OF_STICKERS + startIdx);
+}
+
+function moreStickers(diff) {
+    const size = gStickers.stickers.length;
+    if ((gStickers.stickerDisplayIdx + 1) * NUM_OF_STICKERS >= size && diff > 0) gStickers.stickerDisplayIdx = 0;
+    else if (gStickers.stickerDisplayIdx <= 0 && diff < 0) gStickers.stickerDisplayIdx = Math.floor(size / NUM_OF_STICKERS) - 1;
+    else gStickers.stickerDisplayIdx += diff;
+    renderStickers();
+}
+
+function addSticker(id) {
+    const sticker = getStickerById(id);
+    gMeme.stickers.push(sticker);
+    renderCanvas();
+}
+
+function getStickerById(id) {
+    return gStickers.stickers.find(sticker => sticker.id === id);
+}
+
+function getSticker() {
+    return gMeme.stickers[gMeme.selectedStickerIdx];
+}
+
+function getStickers() {
+    return gMeme.stickers;
+}
+
+function setSelectedStickerIdx(id) {
+    gMeme.selectedStickerIdx = id;
 }

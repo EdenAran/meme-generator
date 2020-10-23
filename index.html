@@ -36,7 +36,7 @@
                 </a>
                 <img src="./imgs/canvas-bg.png" alt="">
                 <canvas id="meme-canvas" height="400" width="400" onclick="onCanvasClick(event)"
-                    onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDragText(event)"></canvas>
+                    onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
             </div>
             <div class="controls-container hide ">
                 <input class="txt" type="text" name="line" onkeyup="onTextChange()"
@@ -75,7 +75,6 @@
                         </button>
                     </div>
                     <div class="text-control-bottom flex space-around">
-                        <!-- <button class="close-editor pointer hide" onclick="hideEditor()">X</button> -->
                         <select value="Impact" onchange="onFontSelect(this)">
                             <option value="Impact">Impact</option>
                             <option value="Ariel">Ariel</option>
@@ -90,6 +89,12 @@
                         <button class="pointer btn fill flex">
                             <input type="color" onchange="onFillChange(this)">
                         </button>
+                    </div>
+                    <div class="text-control-sticker flex space-between">
+                        <button class="left-sticker pointer" onclick="moreStickers(-1)"> <i class="fas fa-chevron-circle-left"></i> </button>
+                        <div class="sticker-container flex space-between align-center">
+                        </div>
+                        <button class="right-sticker pointer" onclick="moreStickers(1)"><i class="fas fa-chevron-circle-right"></i></button>
                     </div>
                 </div>
                 <div class="social-btns flex space-between">
@@ -126,14 +131,6 @@
         <section id="saved" class="container saved hide flex space-around">
         </section>
         <aside class="saved-massege"></aside>
-        <!-- <aside class="download-modal flex space-around align-center column">
-            <label>
-                Choose a name
-            </label>
-            <input type="text">
-            <button class="pointer">Submit</button>
-        </aside>
-    </main> -->
         <script src="js/storage-service.js"></script>
         <script src="js/upload-service.js"></script>
         <script src="js/gallery-service.js"></script>
