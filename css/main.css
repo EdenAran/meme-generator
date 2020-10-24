@@ -63,7 +63,6 @@ a {
 /* width */
 ::-webkit-scrollbar {
     width: 13px;
-
 }
 
 /* Track */
@@ -71,7 +70,6 @@ a {
     border-radius: 7px;
     margin-bottom: 6px;
     background: #22252c;
-    /* margin-inline-start: 10px; */
 }
 
 /* Handle */
@@ -316,7 +314,6 @@ a {
 
 .canvas-container {
     width: 546px;
-    /* height: 546px; */
     display: flex;
     margin-inline-end: 90px;
     justify-content: center;
@@ -457,24 +454,30 @@ canvas {
 /* SAVED MEMES */
 .saved {
     margin: 40px auto;
-    padding: 25px 13px 0 25px;
+    padding: 15px;
     width: 1243px;
     border-radius: 10px;
     background-color: #383b42;
     height: 100%;
-    overflow-y: unset;
+}
+
+.saved-container {
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .saved span {
     position: relative;
-    height: fit-content
+    height: fit-content;
+    display: block;
 }
 
 .saved img {
     width: 200px;
     object-fit: cover;
     border-radius: 10px;
-    margin: 15px;
+    margin: 10px;
 }
 
 .saved span .delete-btn {
@@ -680,28 +683,20 @@ canvas {
 @media (max-width: 840px) {
     html {
         font-size: 18px;
-        overflow-y: hidden;
+        overflow-y: auto;
     }
 
     body.hamb-open {
-        /* overflow-y: hidden; */
+        overflow-y: hidden;
         height: 100vh;
     }
 
     .main-header {
         padding: 0 50px;
-        /* position: fixed; */
         border-radius: unset;
         margin: 0 0 20px 0;
         height: 100px;
         width: 100%;
-        z-index: 5;
-    }
-
-    .header-fill {
-        display: none;
-        height: 100px;
-        margin-bottom: 20px;
     }
 
     .logo {
@@ -746,17 +741,31 @@ canvas {
     .saved {
         width: 100%;
         max-width: 480px;
-        height: unset;
-        padding: 25px 0;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+
+    .gallery-nav {
+        padding-bottom: 5px;
     }
 
     .word-area,
+    .search-area {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+    }
+
     .search-area input {
         width: 100%;
-        max-width: 450px;
+    }
+
+    .search-btn {
+        top: 1.275rem;
     }
 
     .word-search {
+        font-size: 0.5rem;
         width: 100%;
         max-width: 350px;
         height: fit-content;
@@ -772,17 +781,15 @@ canvas {
     .img-container {
         margin: 0;
         padding: 0;
-        flex-direction: column;
-        align-items: center;
-        overflow-y: hidden;
+        overflow-y: auto;
     }
 
     .img-container img,
     .saved img {
         width: 100%;
-        max-width: 350px;
-        height: 350px;
-        margin: 5px 0;
+        max-width: 300px;
+        margin: 5px;
+        height: 100%;
     }
 
 

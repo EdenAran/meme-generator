@@ -96,7 +96,7 @@ function switchLines() {
     const numOfElements = (el === 'text') ? gMeme.lines.length - 1 : gMeme.stickers.length - 1;
     const currIdx = (el === 'text') ? gMeme.selectedLineIdx : gMeme.selectedStickerIdx;
     if (el === 'text') gMeme.selectedLineIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
-    else if(el ==='sticker') gMeme. selectedStickerIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
+    else if (el === 'sticker') gMeme.selectedStickerIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
     renderCanvas()
     setText();
 }

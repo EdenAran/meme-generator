@@ -40,7 +40,7 @@ function drawCanvas({ url }, isHighlight = true) {
     clearCanvas();
     img.src = `${url}`;
     img.onload = () => {
-        let height = Math.round((img.height*gCanvas.width) / img.width);
+        let height = Math.round((img.height * gCanvas.width) / img.width);
         setCanvasHeight(img);
         gCtx.drawImage(img, 0, 0, gCanvas.width, height);
         highlightElement(isHighlight);
@@ -215,8 +215,8 @@ function isDraggable(ev, isTouch) {
     return (isStickerArea(ev, isTouch) || isTextArea(ev, isTouch));
 }
 
-function setCanvasHeight(img){
-    const height = Math.round((img.height*gCanvas.width) / img.width);
+function setCanvasHeight(img) {
+    const height = Math.round((img.height * gCanvas.width) / img.width);
     (document.querySelector('canvas').height) = height;
     document.querySelector('.canvas-container').height = height;
 

@@ -7,6 +7,6 @@ function loadFromStorage(key) {
     var str = localStorage.getItem(key)
     return JSON.parse(str)
 }
-function removeFromStorage(key){
+function removeFromStorage(key) {
     localStorage.removeItem(key);
 }

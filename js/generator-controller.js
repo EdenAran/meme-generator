@@ -19,7 +19,7 @@ function renderImages(isSaved = false) {
         `
     ).join('');
     if (!isSaved) document.querySelector('.img-container').innerHTML = strHTML;
-    else document.querySelector('.saved').innerHTML = strHTML;
+    else document.querySelector('.saved-container').innerHTML = strHTML;
 }
 
 function renderKeywords() {

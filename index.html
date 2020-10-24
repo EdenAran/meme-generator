@@ -27,7 +27,6 @@
             </li>
         </ul>
     </header>
-    <header class="header-fill"></header>
     <main class="main-content">
         <section class="meme-editor shrink flex justify-center">
             <div class="canvas-container hide">
@@ -35,10 +34,9 @@
                     Save
                 </a>
                 <img src="./imgs/canvas-bg.png" alt="">
-                <canvas id="meme-canvas"  ontouchstart="onCanvasTouch(event)"
-                    ontouchmove="onDrag(event, true)" ontouchend="onMouseUp()" onclick="onCanvasClick(event)"
-                    onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event, false)"
-                    onmouseout="onMouseUp()"></canvas>
+                <canvas id="meme-canvas" ontouchstart="onCanvasTouch(event)" ontouchmove="onDrag(event, true)"
+                    ontouchend="onMouseUp()" onclick="onCanvasClick(event)" onmousedown="onMouseDown(event)"
+                    onmouseup="onMouseUp()" onmousemove="onDrag(event, false)" onmouseout="onMouseUp()"></canvas>
             </div>
             <div class="controls-container hide ">
                 <input class="txt" type="text" name="line" onkeyup="onTextChange()"
@@ -133,6 +131,7 @@
             </modal>
         </aside>
         <section id="saved" class="container saved hide flex justify-center wrap">
+            <div class="saved-container flex justify-center align-center wrap"></div>
         </section>
         <aside class="saved-massege"></aside>
         <script src="js/storage-service.js"></script>
