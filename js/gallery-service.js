@@ -11,24 +11,25 @@ var gKeywords = {
     'lightyear': 1, 'woody': 12, 'sad': 8, 'happy': 13
 };
 var gImgs = [
-    { id: 1, url: `./imgs/1.jpg`, keywords: ['meme', 'trump', 'funny', 'face'] },
-    { id: 2, url: `./imgs/2.jpg`, keywords: ['meme', 'dog', 'cute'] },
-    { id: 3, url: `./imgs/3.jpg`, keywords: ['meme', ' baby', 'dog', 'cute'] },
-    { id: 4, url: `./imgs/4.jpg`, keywords: ['meme', 'cat', 'tired', 'cute'] },
-    { id: 5, url: `./imgs/5.jpg`, keywords: ['meme', 'success', 'kid', 'positive'] },
-    { id: 6, url: `./imgs/6.jpg`, keywords: ['meme', 'aliens', 'conspiracy', 'history'] },
-    { id: 7, url: `./imgs/7.jpg`, keywords: ['meme', 'funny face', 'big eyes', 'kid', 'cute'] },
-    { id: 8, url: `./imgs/8.jpg`, keywords: ['meme', 'sarcastic', 'man'] },
-    { id: 9, url: `./imgs/9.jpg`, keywords: ['meme', 'evil', 'laugh', 'kid'] },
-    { id: 10, url: `./imgs/10.jpg`, keywords: ['meme', 'smile', 'barak', 'obama', 'positive'] },
-    { id: 11, url: `./imgs/11.jpg`, keywords: ['meme', 'kissing', 'pride', 'sport'] },
-    { id: 12, url: `./imgs/12.jpg`, keywords: ['meme', 'haim', ' hecht', 'point'] },
-    { id: 13, url: `./imgs/13.jpg`, keywords: ['meme', 'cheers', 'leonardo', 'alcohol'] },
-    { id: 14, url: `./imgs/14.jpg`, keywords: ['meme', 'matrix', 'laurence', 'fishburne'] },
-    { id: 15, url: `./imgs/15.jpg`, keywords: ['meme', 'LOTR', 'one', 'simply', 'mordor'] },
-    { id: 16, url: `./imgs/16.jpg`, keywords: ['meme', 'picard', 'embarrassed', 'smile', 'star', 'trek'] },
-    { id: 17, url: `./imgs/17.jpg`, keywords: ['meme', 'v', 'putin', 'serious'] },
-    { id: 18, url: `./imgs/18.jpg`, keywords: ['meme', 'toy story', 'buzz', 'lightyear', 'woody', 'sad', 'happy'] }
+    { ratio: 'square', id: 1, url: `./imgs/1.jpg`, keywords: ['meme', 'trump', 'funny', 'face'] },
+    { ratio: 'landscape', id: 2, url: `./imgs/2.jpg`, keywords: ['meme', 'dog', 'cute'] },
+    { ratio: 'square', id: 3, url: `./imgs/3.jpg`, keywords: ['meme', ' baby', 'dog', 'cute'] },
+    { ratio: 'landscape', id: 4, url: `./imgs/4.jpg`, keywords: ['meme', 'cat', 'tired', 'cute'] },
+    { ratio: 'landscape', id: 5, url: `./imgs/5.jpg`, keywords: ['meme', 'success', 'kid', 'positive'] },
+    { ratio: 'square', id: 6, url: `./imgs/6.jpg`, keywords: ['meme', 'aliens', 'conspiracy', 'history'] },
+    { ratio: 'landscape', id: 7, url: `./imgs/7.jpg`, keywords: ['meme', 'funny face', 'big eyes', 'kid', 'cute'] },
+    { ratio: 'square', id: 8, url: `./imgs/8.jpg`, keywords: ['meme', 'sarcastic', 'man'] },
+    { ratio: 'landscape', id: 9, url: `./imgs/9.jpg`, keywords: ['meme', 'evil', 'laugh', 'kid'] },
+    { ratio: 'landscape', id: 10, url: `./imgs/10.jpg`, keywords: ['meme', 'smile', 'barak', 'obama', 'positive'] },
+    { ratio: 'landscape', id: 11, url: `./imgs/11.jpg`, keywords: ['meme', 'kissing', 'pride', 'sport'] },
+    { ratio: 'landscape', id: 12, url: `./imgs/12.jpg`, keywords: ['meme', 'haim', ' hecht', 'point'] },
+    { ratio: 'landscape', id: 13, url: `./imgs/13.jpg`, keywords: ['meme', 'cheers', 'leonardo', 'alcohol'] },
+    { ratio: 'square', id: 14, url: `./imgs/14.jpg`, keywords: ['meme', 'matrix', 'laurence', 'fishburne'] },
+    { ratio: 'landscape', id: 15, url: `./imgs/15.jpg`, keywords: ['meme', 'LOTR', 'one', 'simply', 'mordor'] },
+    { ratio: 'landscape', id: 16, url: `./imgs/16.jpg`, keywords: ['meme', 'picard', 'embarrassed', 'smile', 'star', 'trek'] },
+    { ratio: 'landscape', id: 17, url: `./imgs/17.jpg`, keywords: ['meme', 'v', 'putin', 'serious'] },
+    { ratio: 'landscape', id: 18, url: `./imgs/18.jpg`, keywords: ['meme', 'toy story', 'buzz', 'lightyear', 'woody', 'sad', 'happy'] }
+
 ];
 
 function getImages() {

@@ -40,7 +40,9 @@ function drawCanvas({ url }, isHighlight = true) {
     clearCanvas();
     img.src = `${url}`;
     img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        let height = Math.round((img.height*gCanvas.width) / img.width);
+        setCanvasHeight(img);
+        gCtx.drawImage(img, 0, 0, gCanvas.width, height);
         highlightElement(isHighlight);
         lines.forEach(line => {
             updateTextSettings(line);
@@ -211,4 +213,11 @@ function isDraggable(ev, isTouch) {
     const sticker = getSticker();
     if (!line && !sticker) return
     return (isStickerArea(ev, isTouch) || isTextArea(ev, isTouch));
+}
+
+function setCanvasHeight(img){
+    const height = Math.round((img.height*gCanvas.width) / img.width);
+    (document.querySelector('canvas').height) = height;
+    document.querySelector('.canvas-container').height = height;
+
 }

@@ -35,7 +35,7 @@
                     Save
                 </a>
                 <img src="./imgs/canvas-bg.png" alt="">
-                <canvas id="meme-canvas" height="400" width="400" ontouchstart="onCanvasTouch(event)"
+                <canvas id="meme-canvas"  ontouchstart="onCanvasTouch(event)"
                     ontouchmove="onDrag(event, true)" ontouchend="onMouseUp()" onclick="onCanvasClick(event)"
                     onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event, false)"
                     onmouseout="onMouseUp()"></canvas>
@@ -124,7 +124,7 @@
                     <button class=" more-words pointer" onclick="onMoreWords()">More</button>
                 </div>
             </nav>
-            <div class="img-container flex wrap justify-center">
+            <div class="img-container  flex justify-center align-center wrap">
             </div>
         </section>
         <aside class="modal-container hide flex justify-center align-center">
@@ -132,7 +132,7 @@
             <modal class="share-container">
             </modal>
         </aside>
-        <section id="saved" class="container saved hide flex space-around">
+        <section id="saved" class="container saved hide flex justify-center wrap">
         </section>
         <aside class="saved-massege"></aside>
         <script src="js/storage-service.js"></script>

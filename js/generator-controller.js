@@ -206,6 +206,7 @@ function showEditor() {
 }
 
 function hideEditor() {
+    document.body.style.cursor = 'auto';
     document.querySelector('.meme-editor').classList.add('shrink');
     document.querySelector('.canvas-container').classList.add('hide');
     document.querySelector('.controls-container').classList.add('hide');

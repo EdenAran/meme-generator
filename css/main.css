@@ -273,7 +273,6 @@ a {
     padding: 5px;
 }
 
-
 .text-control-sticker div {
     width: 100%;
     border-radius: 5px;
@@ -317,7 +316,7 @@ a {
 
 .canvas-container {
     width: 546px;
-    height: 546px;
+    /* height: 546px; */
     display: flex;
     margin-inline-end: 90px;
     justify-content: center;
@@ -339,7 +338,7 @@ a {
 canvas {
     box-shadow: 1px 5px 0 rgba(13, 14, 16, 0.35), inset 0 5px 0 rgba(255, 255, 255, 0.25);
     border-radius: 25px;
-    height: 100%;
+    width: 100%;
 }
 
 .close-editor {
@@ -441,15 +440,14 @@ canvas {
     height: 100%;
     overflow-y: scroll;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .img-container img {
-    width: 200px;
-    height: 200px;
+    width: 220px;
     object-fit: cover;
     border-radius: 10px;
-    margin: 15px;
+    margin: 5px;
 }
 
 .gallery .delete-btn {
@@ -464,8 +462,7 @@ canvas {
     border-radius: 10px;
     background-color: #383b42;
     height: 100%;
-    flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: unset;
 }
 
 .saved span {
@@ -475,7 +472,6 @@ canvas {
 
 .saved img {
     width: 200px;
-    height: 200px;
     object-fit: cover;
     border-radius: 10px;
     margin: 15px;
@@ -497,7 +493,6 @@ canvas {
     padding: 5px;
     text-align: center;
     text-shadow: 1px 1px rgb(0, 0, 0);
-    /* transition: .4s; */
 }
 
 .saved .delete-btn:hover,
@@ -666,8 +661,8 @@ canvas {
 
     .canvas-container {
         margin-inline-end: 10px;
-        width: 450px;
-        height: 450px;
+        max-width: 450px;
+        max-height: 450px;
     }
 
     .text-control>* {
@@ -685,11 +680,11 @@ canvas {
 @media (max-width: 840px) {
     html {
         font-size: 18px;
-        overflow-y: unset;
+        overflow-y: hidden;
     }
 
     body.hamb-open {
-        overflow-y: hidden;
+        /* overflow-y: hidden; */
         height: 100vh;
     }
 
@@ -775,19 +770,21 @@ canvas {
     }
 
     .img-container {
-        overflow: hidden;
         margin: 0;
         padding: 0;
         flex-direction: column;
         align-items: center;
+        overflow-y: hidden;
     }
 
-    .img-container img {
+    .img-container img,
+    .saved img {
         width: 100%;
         max-width: 350px;
         height: 350px;
         margin: 5px 0;
     }
+
 
     .canvas-container img {
         display: none;
