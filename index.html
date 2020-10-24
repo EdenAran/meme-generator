@@ -35,8 +35,10 @@
                     Save
                 </a>
                 <img src="./imgs/canvas-bg.png" alt="">
-                <canvas id="meme-canvas" height="400" width="400" onclick="onCanvasClick(event)"
-                    onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
+                <canvas id="meme-canvas" height="400" width="400" ontouchstart="onCanvasTouch(event)"
+                    ontouchmove="onDrag(event, true)" ontouchend="onMouseUp()" onclick="onCanvasClick(event)"
+                    onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event, false)"
+                    onmouseout="onMouseUp()"></canvas>
             </div>
             <div class="controls-container hide ">
                 <input class="txt" type="text" name="line" onkeyup="onTextChange()"
@@ -87,14 +89,16 @@
                         <button class="pointer btn stroke" onclick="onStroke()">
                             <img src="./imgs/stroke.png" alt=""></button>
                         <button class="pointer btn fill flex">
-                            <input type="color" onchange="onFillChange(this)">
+                            <input type="color" onchange="onFillChange(this)" oninput="onFillChange(this)">
                         </button>
                     </div>
                     <div class="text-control-sticker flex space-between">
-                        <button class="left-sticker pointer" onclick="moreStickers(-1)"> <i class="fas fa-chevron-circle-left"></i> </button>
+                        <button class="left-sticker pointer" onclick="moreStickers(-1)"> <i
+                                class="fas fa-chevron-circle-left"></i> </button>
                         <div class="sticker-container flex space-between align-center">
                         </div>
-                        <button class="right-sticker pointer" onclick="moreStickers(1)"><i class="fas fa-chevron-circle-right"></i></button>
+                        <button class="right-sticker pointer" onclick="moreStickers(1)"><i
+                                class="fas fa-chevron-circle-right"></i></button>
                     </div>
                 </div>
                 <div class="social-btns flex space-between">

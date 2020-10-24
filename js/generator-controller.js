@@ -67,7 +67,7 @@ function setInitText(xCord) {
 }
 
 function onUpdateSize(diff) {
-    setFontSize(diff);
+    setElementSize(diff);
 }
 
 function onUpdatePos(diff) {
@@ -75,7 +75,12 @@ function onUpdatePos(diff) {
 }
 
 function onCanvasClick(ev) {
-    textTouch(ev);
+    canvasClick(ev);
+}
+
+function onCanvasTouch(ev) {
+    ev.preventDefault();
+    touchStart(ev);
 }
 
 function setFocus() {
@@ -97,7 +102,7 @@ function setText() {
 }
 
 function onDeleteLine() {
-    deleteLine();
+    deleteElement();
 }
 
 function onDownload() {
@@ -132,20 +137,23 @@ function onFillChange({ value }) {
 }
 
 function onMouseDown(ev) {
-    if (isDragArea(ev)) startDrag(false);
-    else if (isStickerArea(ev)) startDrag(true);
+    if (isDragArea(ev, false)) {
+        startDrag();
+        document.body.style.cursor = 'grabbing'
+    } else document.body.style.cursor = 'auto';
 }
 
 function onMouseUp() {
     releaseDrag();
 }
 
-function onDrag(ev) {
-    dragText(ev);
-    dragSticker(ev);
+function onDrag(ev, isTouch) {
+    updatecursor(ev, isTouch);
+    dragText(ev, isTouch);
+    dragSticker(ev, isTouch);
 }
 
-function onAddSticker(id){
+function onAddSticker(id) {
     addSticker(id);
 }
 
@@ -174,6 +182,12 @@ function onDeleteMeme(id) {
     deleteSavedMeme(id);
 }
 
+function updatecursor(ev, isTouch) {
+    if (isDragging()) return;
+    if (isDragArea(ev, isTouch)) document.body.style.cursor = 'grab';
+    else if (isDraggable(ev, isTouch)) document.body.style.cursor = 'pointer';
+    else document.body.style.cursor = 'auto';
+}
 
 function onNavClick(target) {
     hideEditor();
@@ -198,7 +212,7 @@ function hideEditor() {
 }
 
 function ontoggleMenu() {
-    document.querySelector('.hamb-btn').classList.toggle('hamb-open');
+    document.body.classList.toggle('hamb-open');
     document.querySelector('.main-nav').classList.toggle('shrink-sm')
     document.querySelectorAll('.main-nav li').forEach(el => el.classList.toggle('shrink-sm'))
     document.querySelectorAll('.main-nav li a').forEach(el => el.classList.toggle('hide-sm'))

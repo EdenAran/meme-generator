@@ -23,7 +23,7 @@
 html {
     font-family: poppins, sans-serif;
     scroll-behavior: smooth;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 body {
@@ -56,6 +56,36 @@ input {
 
 a {
     text-decoration: none;
+}
+
+/* SCROLLBAR */
+
+/* width */
+::-webkit-scrollbar {
+    width: 13px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 7px;
+    margin-bottom: 6px;
+    background: #22252c;
+    /* margin-inline-start: 10px; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    width: 13px;
+    height: 57px;
+    border-radius: 7px;
+    background-color: #22252c;
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(-86deg, rgb(42, 153, 88) 0%, rgb(10, 120, 145) 100%);
 }
 
 /* LAYOUT */
@@ -234,25 +264,25 @@ a {
     opacity: 0;
 }
 
-.text-control-sticker{
+.text-control-sticker {
     grid-column: span 5;
     background-color: rgba(255, 255, 240, 0.7);
     max-width: 100%;
-    height:80px;
+    height: 80px;
     border-radius: 50px;
     padding: 5px;
 }
 
 
-.text-control-sticker div{
+.text-control-sticker div {
     width: 100%;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.text-control-sticker div img{
-    width:60px;
-    height:60px;
+.text-control-sticker div img {
+    width: 60px;
+    height: 60px;
 }
 
 .social-btns {
@@ -336,6 +366,8 @@ canvas {
     background-color: #44bb83;
 }
 
+
+
 /* gallery */
 
 .gallery {
@@ -409,7 +441,7 @@ canvas {
     height: 100%;
     overflow-y: scroll;
     width: 100%;
-    padding-inline-start: 32px;
+    padding: 0 20px;
 }
 
 .img-container img {
@@ -463,7 +495,7 @@ canvas {
     width: 20px;
     height: 20px;
     padding: 5px;
-    text-align:center;
+    text-align: center;
     text-shadow: 1px 1px rgb(0, 0, 0);
     /* transition: .4s; */
 }
@@ -473,7 +505,7 @@ canvas {
     display: flex;
 }
 
-.saved .delete-btn:hover{
+.saved .delete-btn:hover {
     color: rgb(219, 2, 2);
     font-size: 1.4rem;
 }
@@ -589,6 +621,7 @@ canvas {
     transform: scale(0.98);
 }
 
+
 /* MEDIUM */
 @media (max-width: 1260px) {
 
@@ -624,7 +657,6 @@ canvas {
     .controls-container {
         width: 450px;
         height: 450px;
-        m5
     }
 
     .share-btn,
@@ -638,34 +670,41 @@ canvas {
         height: 450px;
     }
 
-    .text-control >*{
+    .text-control>* {
         height: 60px;
         margin: 5px;
     }
 
-    .text-control-sticker div img{
-        width:40px;
-        height:40px;
+    .text-control-sticker div img {
+        width: 40px;
+        height: 40px;
     }
 }
 
 /* SMALL */
 @media (max-width: 840px) {
     html {
-        font-size: 20px;
+        font-size: 18px;
+        overflow-y: unset;
+    }
+
+    body.hamb-open {
+        overflow-y: hidden;
+        height: 100vh;
     }
 
     .main-header {
         padding: 0 50px;
-        position: fixed;
+        /* position: fixed; */
         border-radius: unset;
-        margin: 0 0 100px 0;
+        margin: 0 0 20px 0;
         height: 100px;
-        width: 100vw;
+        width: 100%;
         z-index: 5;
     }
 
     .header-fill {
+        display: none;
         height: 100px;
         margin-bottom: 20px;
     }
@@ -739,28 +778,43 @@ canvas {
         overflow: hidden;
         margin: 0;
         padding: 0;
+        flex-direction: column;
+        align-items: center;
     }
 
     .img-container img {
         width: 100%;
-        max-width: 200px;
-        height: 200px;
+        max-width: 350px;
+        height: 350px;
+        margin: 5px 0;
+    }
+
+    .canvas-container img {
+        display: none;
     }
 
     .canvas-container,
-    .controls-container {
+    .controls-container,
+    canvas {
         width: 100%;
-        width: 450px;
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    .controls-container {
+        padding: 5px;
+    }
+
+    .controls-container>*,
+    .text-control>*,
+    .text-control-sticker .sticker-container {
+        width: 100%;
     }
 
     .canvas-container {
         margin-bottom: 80px;
     }
 
-    .controls-container {
-        padding: 10px;
-        margin: 0;
-    }
 
     .shrink-sm {
         height: 0 !important;
@@ -770,16 +824,12 @@ canvas {
         display: none !important;
     }
 
-    .hamb-open {
+    body.hamb-open .hamb-btn {
         transform: rotate(270deg);
     }
 
-    .close-editor {
-        top: -530px;
-        right: -25px;
-    }
-    .text-control-sticker div img{
-        width:50px;
-        height:50px;
+    .text-control-sticker div img {
+        max-width: 50px;
+        max-height: 50px;
     }
 }
