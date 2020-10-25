@@ -4,7 +4,6 @@ function init() {
     const canvas = document.querySelector('#meme-canvas');
     renderImages();
     renderKeywords();
-    setInitText(canvas.width / 2);
     setInitialCanvas(canvas);
     setSavedMemes();
     renderStickers();
@@ -69,12 +68,6 @@ function onTextChange() {
     }
 }
 
-function setInitText(xCord) {
-    const line = getLine();
-    setInitTextPosition(line, xCord);
-    setText(line.txt);
-}
-
 function onUpdateSize(diff) {
     setItemSize(diff);
     renderCanvas();
@@ -94,13 +87,6 @@ function onCanvasTouch(ev) {
     touchStart(ev);
 }
 
-function setFocus() {
-    const elText = document.querySelector('.txt')
-    setTimeout(() => {
-        elText.setSelectionRange(0, elText.value.length);
-        elText.focus();
-    }, 0)
-}
 
 function onTextClick(el) {
     el.setSelectionRange(0, el.value.length);
@@ -108,7 +94,7 @@ function onTextClick(el) {
 
 function onAddLine() {
     createLine();
-    setFocus();
+    setText();
     renderCanvas();
 
 }
@@ -119,9 +105,16 @@ function onSwitchLines() {
 }
 
 function setText() {
-    const txt = (getLine()) ? getLine().txt : '';
-    document.querySelector('input.txt').value = txt;
-    setFocus();
+    const elText = document.querySelector('.txt')
+    const line = getLine();
+    if(!line) return;
+    elText.value = line.txt;
+    setTimeout(() => {
+        elText.setSelectionRange(0, elText.value.length);
+        elText.focus();
+    }, 0)
+    document.querySelector('.font-select').value = line.font;
+    document.querySelector('.fill-color').value = line.color;
 }
 
 function onDeleteLine() {

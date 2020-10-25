@@ -103,11 +103,10 @@ function getActiveTextIdx(ev, isTouch) {
 function getActiveStickerIdx(ev, isTouch) {
     const stickers = getStickers();
     const { x, y } = getMousePos(ev, isTouch);
-    return stickers.findIndex(sticker => ((x >= sticker.xCord - 5 && x <= sticker.xCord + 75) &&
-        (y >= sticker.yCord - 5 && y <= sticker.yCord + 75))
-    )
-}
-
+    return stickers.findIndex(sticker => ((x >= sticker.xCord - 5 && x <= sticker.xCord + sticker.size + 5) &&
+        (y >= sticker.yCord - 5 && y <= sticker.yCord + sticker.size + 5)))
+    }
+    
 function getMousePos(ev, isTouch = false) {
     const rect = gCanvas.getBoundingClientRect(),
         scaleX = gCanvas.width / rect.width,

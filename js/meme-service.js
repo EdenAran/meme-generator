@@ -7,19 +7,7 @@ var gMeme = {
     isLoaded: false,
     selectedImgId: 0,
     selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'Say something funny',
-            size: 30,
-            align: 'center',
-            color: 'white',
-            font: 'Impact',
-            isStroke: true,
-            xCord: 0,
-            yCord: 50,
-            width: 0
-        }
-    ],
+    lines: [],
     stickers: [],
     selectedStickerIdx: 0,
     loadedImg: { url: '' }
@@ -53,18 +41,16 @@ function updateText(txt) {
 
 function setItemSize(diff) {
     const selectedItem = getDragData().selectedItem;
-    if (selectedItem === 'text') getLine().size += diff;
-    if (selectedItem === 'sticker') getSticker().size += diff;
-}
-
-function setInitTextPosition(line, xCord) {
-    line.xCord = xCord;
+    if(!selectedItem) return;
+    const item = (selectedItem === 'text') ? getLine() : getSticker();
+    item.size += 2*diff;
 }
 
 function updatePosition(diff) {
-    const el = getDragData().selectedItem;
-    if (el === 'text') getLine().yCord += diff;
-    if (el === 'sticker') getSticker().yCord += diff;
+    const selectedItem = getDragData().selectedItem;
+    if(!selectedItem) return;
+    const item = (selectedItem === 'text') ? getLine() : getSticker();
+    item.yCord += diff;
 }
 
 function setSelectedTextIdx(idx) {
@@ -80,7 +66,7 @@ function createLine() {
         txt: 'Your text here',
         size: 25,
         align: 'center',
-        color: 'white',
+        color: '#ffffff',
         font: 'Impact',
         isStroke: true,
         xCord,
@@ -92,17 +78,17 @@ function createLine() {
 }
 
 function switchLines() {
-    const el = getDragData().selectedItem;
-    const numOfElements = (el === 'text') ? gMeme.lines.length - 1 : gMeme.stickers.length - 1;
-    const currIdx = (el === 'text') ? gMeme.selectedLineIdx : gMeme.selectedStickerIdx;
-    if (el === 'text') gMeme.selectedLineIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
-    else if (el === 'sticker') gMeme.selectedStickerIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
+    const item = getDragData().selectedItem;
+    const numOfItems = (setItemSize === 'text') ? gMeme.lines.length - 1 : gMeme.stickers.length - 1;
+    const currIdx = (setItemSize === 'text') ? gMeme.selectedLineIdx : gMeme.selectedStickerIdx;
+    if (item === 'text') gMeme.selectedLineIdx = (currIdx < numOfItems) ? currIdx + 1 : 0
+    else if (item === 'sticker') gMeme.selectedStickerIdx = (currIdx < numOfItems) ? currIdx + 1 : 0
     setText();
 }
 
 function deleteItem() {
-    const el = getDragData().selectedItem;
-    if (el === 'text') {
+    const item = getDragData().selectedItem;
+    if (item === 'text') {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1);
         gMeme.selectedLineIdx = 0;
     }

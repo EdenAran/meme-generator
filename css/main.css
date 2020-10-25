@@ -156,11 +156,6 @@ a {
 
 /* generator */
 
-.main-content {
-    height: 680px;
-}
-
-
 .meme-editor {
     transition: height .4s;
     height: 660px;
@@ -173,7 +168,6 @@ a {
     height: 546px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 60px repeat(auto-fit, 1fr);
     grid-gap: 20px;
     padding: 25px 40px;
     box-shadow: 1px 5px 0 rgba(187, 196, 209, 0.11), inset 0 5px 0 rgba(255, 255, 255, 0.11);
@@ -191,7 +185,7 @@ a {
     text-align: center;
     background-color: #ebeef3;
     grid-row: span 1;
-    grid-column: span 5;
+    grid-column: 1/-1;
 }
 
 .btn {
@@ -368,7 +362,7 @@ canvas {
 
 .gallery {
     margin: 40px auto 0;
-    padding: 25px 13px 10px 25px;
+    padding: 25px 13px;
     width: 1243px;
     border-radius: 10px;
     background-color: #383b42;
@@ -437,11 +431,11 @@ canvas {
     border-radius: 25px;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     color: #fefefe;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     font-size: 1.3rem;
     width: fit-content;
     padding: 5px 10px;
-    background-color:rgb(91, 109, 145);
+    background-color: rgb(91, 109, 145);
 }
 
 .file-input {
@@ -456,11 +450,12 @@ canvas {
     height: 100%;
     overflow-y: scroll;
     width: 100%;
-    padding: 0 10px;
+    padding: 0 5px;
+    justify-content: space-between;
 }
 
 .img-container img {
-    width: 220px;
+    width: 225px;
     object-fit: cover;
     border-radius: 10px;
     margin: 5px;
@@ -470,7 +465,7 @@ canvas {
     display: none;
 }
 
-.file-input{
+.file-input {
     display: none;
 }
 
@@ -676,9 +671,11 @@ canvas {
         padding: 0 15px;
     }
 
+
     .controls-container {
         width: 450px;
-        height: 450px;
+        padding: 25px;
+        /* height: 450px; */
     }
 
     .share-btn,
@@ -690,12 +687,16 @@ canvas {
         margin-inline-end: 10px;
         max-width: 450px;
     }
-    
+
+    .canvas-container img {
+        top: -245px;
+    }
+
     .text-control>* {
         height: 60px;
         margin: 5px;
     }
-    
+
     .text-control-sticker div img {
         width: 40px;
         height: 40px;
@@ -708,6 +709,7 @@ canvas {
         font-size: 18px;
         overflow-y: auto;
     }
+
 
     body.hamb-open {
         overflow-y: hidden;
@@ -809,6 +811,7 @@ canvas {
         margin: 0;
         padding: 0;
         overflow-y: auto;
+        justify-content: center;
     }
 
     .img-container img,
@@ -833,7 +836,7 @@ canvas {
 
     .canvas-container,
     .controls-container,
-    canvas {
+    canvas, .txt {
         width: 100%;
         max-width: 400px;
         min-width: 300px;
@@ -841,10 +844,12 @@ canvas {
     
     .controls-container {
         height: fit-content;
-        padding: 5px;
+        padding: 10px;
         grid-gap: 10px;
+        /* width: 400px; */
     }
-
+    
+    
     .controls-container>*,
     .text-control>*,
     .text-control-sticker .sticker-container {

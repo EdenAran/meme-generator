@@ -75,7 +75,7 @@
                         </button>
                     </div>
                     <div class="text-control-bottom flex space-around">
-                        <select value="Impact" onchange="onFontSelect(this)">
+                        <select class="font-select" value="Impact" onchange="onFontSelect(this)">
                             <option value="Impact">Impact</option>
                             <option value="Ariel">Ariel</option>
                             <option value="Comic Sans MS">Comic Sans MS</option>
@@ -87,7 +87,7 @@
                         <button title="Text outline" class="pointer btn stroke" onclick="onStroke()">
                             <img src="./imgs/stroke.png" alt=""></button>
                         <button title="Change text color" class="pointer btn fill flex" onclick="onFillClick()">
-                            <input type="color" class="pointer fill-color" onclick="onFillChange(this)" oninput="onFillChange(this)" value="#ffffff">
+                            <input type="color" class="pointer fill-color" oninput="onFillChange(this)" value="#ffffff">
                         </button>
                     </div>
                     <div class="text-control-sticker flex space-between">
@@ -125,7 +125,7 @@
             <div class="upload pointer flex justify-center space-around align-center" onclick="document.querySelector('.file-input').click()">
                 Upload Image
             </div>
-            <div class="img-container  flex justify-center align-center wrap">
+            <div class="img-container  flex align-center wrap">
             </div>
         </section>
         <aside class="modal-container hide flex justify-center align-center">
