@@ -82,3 +82,7 @@ function moreKeywords() {
     else gCurrWordIdx++;
     renderKeywords();
 }
+
+function updateSearchWordValue(word){
+    if(gKeywords[word]) gKeywords[word]++;
+}

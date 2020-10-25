@@ -30,47 +30,47 @@
     <main class="main-content">
         <section class="meme-editor shrink flex justify-center">
             <div class="canvas-container hide">
-                <a class="pointer save-btn" onclick="onSave()">
-                    Save
-                </a>
+                    <a class="pointer save-btn" onclick="onSave()">
+                        Save
+                    </a>
                 <img src="./imgs/canvas-bg.png" alt="">
                 <canvas id="meme-canvas" ontouchstart="onCanvasTouch(event)" ontouchmove="onDrag(event, true)"
-                    ontouchend="onMouseUp()" onclick="onCanvasClick(event)" onmousedown="onMouseDown(event)"
+                    ontouchend="onMouseUp()" onmousedown="onCanvasClick(event)"
                     onmouseup="onMouseUp()" onmousemove="onDrag(event, false)" onmouseout="onMouseUp()"></canvas>
             </div>
             <div class="controls-container hide ">
-                <input class="txt" type="text" name="line" onkeyup="onTextChange()"
-                    onclick="this.setSelectionRange(0, this.value.length)">
-                <button class="pointer btn decrease-pos" onclick="onUpdatePos(5)">
+                <input class="txt" type="text" name="line" onkeyup="onTextChange()" 
+                    onclick="onTextClick(this)">
+                <button title="Move up" class="pointer btn decrease-pos" onclick="onUpdatePos(5)">
                     <img src="./imgs/down.png" alt="">
                 </button>
-                <button class="pointer btn increase-pos" onclick="onUpdatePos(-5)">
+                <button title="Move down" class="pointer btn increase-pos" onclick="onUpdatePos(-5)">
                     <img src="./imgs/up.png" alt="">
                 </button>
-                <button class="pointer btn line-switch" onclick="onSwitchLines()">
+                <button title="Switch items" class="pointer btn line-switch" onclick="onSwitchLines()">
                     <img src="./imgs/line-switch.svg" alt="">
                 </button>
-                <button class="pointer btn line-add" onclick="onAddLine()">
+                <button title="Add a line" class="pointer btn line-add" onclick="onAddLine()">
                     <img src="./imgs/plus.png" alt="">
                 </button>
-                <button class="pointer btn line-delete" onclick="onDeleteLine()">
+                <button title="Delete item" class="pointer btn line-delete" onclick="onDeleteLine()">
                     <img src="./imgs/line-delete.svg" alt="">
                 </button>
                 <div class="text-control flex column">
                     <div class="text-control-top flex space-around">
-                        <button class="pointer btn increase-font" onclick="onUpdateSize(1)">
+                        <button title="Increase size" class="pointer btn increase-font" onclick="onUpdateSize(1)">
                             <img src="./imgs/A+.png" alt="">
                         </button>
-                        <button class="pointer btn decrease-font" onclick="onUpdateSize(-1)">
+                        <button title="Decrease size" class="pointer btn decrease-font" onclick="onUpdateSize(-1)">
                             <img src="./imgs/A-.png" alt="">
                         </button>
-                        <button class="pointer btn align-left" onclick="onSetAlign('left')">
+                        <button title="Align left" class="pointer btn align-left" onclick="onSetAlign('left')">
                             <img src="./imgs/left.png" alt="">
                         </button>
-                        <button class="pointer btn align-center" onclick="onSetAlign('center')">
+                        <button title="Align center" class="pointer btn align-center" onclick="onSetAlign('center')">
                             <img src="./imgs/center.png" alt="">
                         </button>
-                        <button class="pointer btn align-right" onclick="onSetAlign('right')">
+                        <button title="Align right" class="pointer btn align-right" onclick="onSetAlign('right')">
                             <img src="./imgs/right.png" alt="">
                         </button>
                     </div>
@@ -84,10 +84,10 @@
                             <option value="Trebuchet MS">Trebuchet MS</option>
                             <option value="Verdana">Verdana</option>
                         </select>
-                        <button class="pointer btn stroke" onclick="onStroke()">
+                        <button title="Text outline" class="pointer btn stroke" onclick="onStroke()">
                             <img src="./imgs/stroke.png" alt=""></button>
-                        <button class="pointer btn fill flex">
-                            <input type="color" onchange="onFillChange(this)" oninput="onFillChange(this)">
+                        <button title="Change text color" class="pointer btn fill flex" onclick="onFillClick()">
+                            <input type="color" class="pointer fill-color" onclick="onFillChange(this)" oninput="onFillChange(this)" value="#ffffff">
                         </button>
                     </div>
                     <div class="text-control-sticker flex space-between">
@@ -122,6 +122,9 @@
                     <button class=" more-words pointer" onclick="onMoreWords()">More</button>
                 </div>
             </nav>
+            <div class="upload pointer flex justify-center space-around align-center" onclick="document.querySelector('.file-input').click()">
+                Upload Image
+            </div>
             <div class="img-container  flex justify-center align-center wrap">
             </div>
         </section>
@@ -133,6 +136,7 @@
         <section id="saved" class="container saved hide flex justify-center wrap">
             <div class="saved-container flex justify-center align-center wrap"></div>
         </section>
+        <input type="file" class="file-input pointer" accept="image/*" name="image" onchange="onImgInput(event)"/>
         <aside class="saved-massege"></aside>
         <script src="js/storage-service.js"></script>
         <script src="js/upload-service.js"></script>

@@ -4,6 +4,7 @@ const NUM_OF_STICKERS = 5;
 
 var gMeme = {
     isSaved: false,
+    isLoaded: false,
     selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [
@@ -20,13 +21,15 @@ var gMeme = {
         }
     ],
     stickers: [],
-    selectedStickerIdx: 0
+    selectedStickerIdx: 0,
+    loadedImg: { url: '' }
 }
 
-var gStickers = {
+var gStickersData = {
     stickers: [],
     stickerDisplayIdx: 0
 }
+
 
 function setSelectedImage(id) {
     gMeme.selectedImgId = +id;
@@ -46,14 +49,12 @@ function getLine() {
 
 function updateText(txt) {
     getLine().txt = txt;
-    renderCanvas();
 }
 
-function setElementSize(diff) {
-    const el = getCanvasData().selectedEl;
-    if (el === 'text') getLine().size += diff;
-    if (el === 'sticker') getSticker().size += diff;
-    renderCanvas();
+function setItemSize(diff) {
+    const selectedItem = getDragData().selectedItem;
+    if (selectedItem === 'text') getLine().size += diff;
+    if (selectedItem === 'sticker') getSticker().size += diff;
 }
 
 function setInitTextPosition(line, xCord) {
@@ -61,10 +62,9 @@ function setInitTextPosition(line, xCord) {
 }
 
 function updatePosition(diff) {
-    const el = getCanvasData().selectedEl;
+    const el = getDragData().selectedItem;
     if (el === 'text') getLine().yCord += diff;
     if (el === 'sticker') getSticker().yCord += diff;
-    renderCanvas();
 }
 
 function setSelectedTextIdx(idx) {
@@ -73,11 +73,12 @@ function setSelectedTextIdx(idx) {
 
 function createLine() {
     const numOfLines = gMeme.lines.length;
-    const yCord = (numOfLines === 0) ? 50 : (numOfLines > 1) ? getCanvas().height / 2 : getCanvas().height - 50;
-    const xCord = getCanvas().width / 2;
+    const canvas = getCanvas();
+    const yCord = (numOfLines === 0) ? 50 : (numOfLines > 1) ? canvas.height / 2 : canvas.height - 50;
+    const xCord = canvas.width / 2;
     const line = {
         txt: 'Your text here',
-        size: 30,
+        size: 25,
         align: 'center',
         color: 'white',
         font: 'Impact',
@@ -87,22 +88,20 @@ function createLine() {
     }
     gMeme.lines.push(line);
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
-    setText(line.txt);
-    renderCanvas();
+    setText();
 }
 
 function switchLines() {
-    const el = getCanvasData().selectedEl;
+    const el = getDragData().selectedItem;
     const numOfElements = (el === 'text') ? gMeme.lines.length - 1 : gMeme.stickers.length - 1;
     const currIdx = (el === 'text') ? gMeme.selectedLineIdx : gMeme.selectedStickerIdx;
     if (el === 'text') gMeme.selectedLineIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
     else if (el === 'sticker') gMeme.selectedStickerIdx = (currIdx < numOfElements) ? currIdx + 1 : 0
-    renderCanvas()
     setText();
 }
 
-function deleteElement() {
-    const el = getCanvasData().selectedEl;
+function deleteItem() {
+    const el = getDragData().selectedItem;
     if (el === 'text') {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1);
         gMeme.selectedLineIdx = 0;
@@ -111,40 +110,25 @@ function deleteElement() {
         gMeme.stickers.splice(gMeme.selectedStickerIdx, 1);
         gMeme.selectedStickerIdx = 0;
     }
-    renderCanvas();
     setText();
 }
 
 function toggleStroke() {
     const line = getLine();
-    line.isStroke = !line.isStroke;
-    renderCanvas();
+    if (getDragData().selectedItem === 'text') line.isStroke = !line.isStroke;
 }
 
 function setColor(color) {
-    getLine().color = color;
-    renderCanvas();
+    if (getDragData().selectedItem === 'text') getLine().color = color;
 }
 
 function setFont(font) {
-    getLine().font = font;
-    renderCanvas();
+    if (getDragData().selectedItem === 'text') getLine().font = font;
 }
 
 function resetGenerator() {
-    gMeme.lines = (gMeme.isSaved) ? [] : [
-        {
-            txt: 'Say something funny',
-            size: 30,
-            align: 'center',
-            color: 'white',
-            font: 'Impact',
-            isStroke: true,
-            xCord: gCanvas.width / 2,
-            yCord: 50,
-            width: 0
-        }
-    ];
+    gMeme.lines = [];
+    createLine();
     gMeme.selectedLineIdx = 0;
     gMeme.stickers = [];
     gMeme.selectedStickerIdx = 0;
@@ -159,22 +143,23 @@ function generateStickers() {
             url: `./imgs/stickers/${i}.png`,
             xCord: canvas.width / 2 - 35,
             yCord: canvas.height / 2 - 35,
-            size: 70
+            size: 70,
+            align: 'center'
         })
     }
-    gStickers.stickers = stickers;
+    gStickersData.stickers = stickers;
 }
 
 function getStickersForDisplay() {
-    const startIdx = gStickers.stickerDisplayIdx * NUM_OF_STICKERS;
-    return gStickers.stickers.slice(startIdx, NUM_OF_STICKERS + startIdx);
+    const startIdx = gStickersData.stickerDisplayIdx * NUM_OF_STICKERS;
+    return gStickersData.stickers.slice(startIdx, NUM_OF_STICKERS + startIdx);
 }
 
 function moreStickers(diff) {
-    const size = gStickers.stickers.length;
-    if ((gStickers.stickerDisplayIdx + 1) * NUM_OF_STICKERS >= size && diff > 0) gStickers.stickerDisplayIdx = 0;
-    else if (gStickers.stickerDisplayIdx <= 0 && diff < 0) gStickers.stickerDisplayIdx = Math.floor(size / NUM_OF_STICKERS) - 1;
-    else gStickers.stickerDisplayIdx += diff;
+    const size = gStickersData.stickers.length;
+    if ((gStickersData.stickerDisplayIdx + 1) * NUM_OF_STICKERS >= size && diff > 0) gStickersData.stickerDisplayIdx = 0;
+    else if (gStickersData.stickerDisplayIdx <= 0 && diff < 0) gStickersData.stickerDisplayIdx = Math.floor(size / NUM_OF_STICKERS) - 1;
+    else gStickersData.stickerDisplayIdx += diff;
     renderStickers();
 }
 
@@ -182,11 +167,10 @@ function addSticker(id) {
     let sticker = {};
     Object.assign(sticker, getStickerById(id))
     gMeme.stickers.push(sticker);
-    renderCanvas();
 }
 
 function getStickerById(id) {
-    return gStickers.stickers.find(sticker => sticker.id === id);
+    return gStickersData.stickers.find(sticker => sticker.id === id);
 }
 
 function getSticker() {
@@ -200,3 +184,14 @@ function getStickers() {
 function setSelectedStickerIdx(id) {
     gMeme.selectedStickerIdx = id;
 }
+
+function setLoadedImg(src) {
+    gMeme.loadedImg.url = src;
+    setIsLoaded(true);
+    renderCanvas();
+}
+
+function setIsLoaded(isLoaded) {
+    gMeme.isLoaded = isLoaded;
+}
+

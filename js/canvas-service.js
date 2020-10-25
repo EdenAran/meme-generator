@@ -2,15 +2,15 @@
 
 var gCanvas;
 var gCtx;
-var gData = {
+var gDragData = {
     isStroke: true,
     isTextDrag: false,
     isStickerDrag: false,
-    selectedEl: 'text'
+    selectedItem: 'text'
 }
 
-function getCanvasData() {
-    return gData;
+function getDragData() {
+    return gDragData;
 }
 
 function getCanvas() {
@@ -33,17 +33,17 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.length);
 }
 
-function drawCanvas({ url }, isHighlight = true) {
+function drawCanvas(url, isHighlight = true) {
     const img = new Image();
     const lines = getLines();
     const stickers = getStickers();
     clearCanvas();
-    img.src = `${url}`;
+    img.src = url;
     img.onload = () => {
         let height = Math.round((img.height * gCanvas.width) / img.width);
         setCanvasHeight(img);
         gCtx.drawImage(img, 0, 0, gCanvas.width, height);
-        highlightElement(isHighlight);
+        highlightItem(isHighlight);
         lines.forEach(line => {
             updateTextSettings(line);
             line.width = gCtx.measureText(line.txt).width;
@@ -73,14 +73,13 @@ function isStickerArea(ev, isTouch) {
 
 function canvasClick(ev, isTouch = false) {
     if (isTextArea(ev, isTouch)) {
-        gData.selectedEl = 'text';
+        gDragData.selectedItem = 'text';
         setSelectedTextIdx(getActiveTextIdx(ev, isTouch));
-        setFocus();
+        setText();
     } else if (isStickerArea(ev, isTouch)) {
-        gData.selectedEl = 'sticker';
+        gDragData.selectedItem = 'sticker';
         setSelectedStickerIdx(getActiveStickerIdx(ev, isTouch))
-    } else gData.selectedEl = '';
-    renderCanvas();
+    } else gDragData.selectedItem = '';
     return;
 }
 
@@ -125,28 +124,30 @@ function getMousePos(ev, isTouch = false) {
 
 
 function setAlign(align) {
-    const line = getLine();
+    const selItem = gDragData.selectedItem;
+    if (!selItem) return;
+    const item = (selItem === 'text') ? getLine() : getSticker();
     var xCord;
+    var diff = (selItem === 'text') ? 0 : item.size
     switch (align) {
         case 'right':
-            xCord = gCanvas.width;
+            xCord = gCanvas.width - diff;
             break;
         case 'center':
-            xCord = gCanvas.width / 2;
+            xCord = gCanvas.width / 2 - diff / 2;
             break;
         case 'left':
             xCord = 0;
             break;
     }
-    line.align = align;
-    line.xCord = xCord;
-    renderCanvas();
+    item.align = align;
+    item.xCord = xCord;
 }
 
-function highlightElement(isHighlight) {
-    const el = (gData.selectedEl === 'text') ? getLine() : (gData.selectedEl === 'sticker') ? getSticker() : null;
+function highlightItem(isHighlight) {
+    const el = (gDragData.selectedItem === 'text') ? getLine() : (gDragData.selectedItem === 'sticker') ? getSticker() : null;
     if (!el) return;
-    const diff = (gData.selectedEl === 'text') ? -1 : 1;
+    const diff = (gDragData.selectedItem === 'text') ? -1 : 1;
     const length = gCanvas.width;
     gCtx.beginPath()
     gCtx.fillStyle = "#ffffff";
@@ -162,50 +163,51 @@ function downloadCanvas(elLink) {
 }
 
 function isDragArea(ev, isTouch) {
-    const el = (gData.selectedEl === 'text') ? getLine() : getSticker();
+    const el = (gDragData.selectedItem === 'text') ? getLine() : getSticker();
     if (!el) return;
     const { y } = getMousePos(ev, isTouch);
-    return (gData.selectedEl === 'text') ? (y <= el.yCord + 5 && y >= el.yCord - el.size - 10) : (y >= el.yCord - 5 && y <= el.yCord + el.size - 10);
+    return (gDragData.selectedItem === 'text') ? (y <= el.yCord + 5 && y >= el.yCord - el.size - 10) : (y >= el.yCord - 5 && y <= el.yCord + el.size - 10);
 }
 
 function startDrag() {
-    if (gData.selectedEl === 'text') gData.isTextDrag = true;
-    else gData.isStickerDrag = true;
+    if (gDragData.selectedItem === 'text') gDragData.isTextDrag = true;
+    else gDragData.isStickerDrag = true;
 }
 
 function releaseDrag() {
-    gData.isTextDrag = false;
-    gData.isStickerDrag = false;
+    gDragData.isTextDrag = false;
+    gDragData.isStickerDrag = false;
 }
 
 function dragText(ev, isTouch) {
-    if (!gData.isTextDrag) return;
+    if (!gDragData.isTextDrag) return;
     const line = getLine();
     const { x, y } = getMousePos(ev, isTouch);
     line.xCord = x;
     line.yCord = y;
-    renderCanvas();
 }
 
 function dragSticker(ev, isTouch) {
-    if (!gData.isStickerDrag) return;
+    if (!gDragData.isStickerDrag) return;
     const sticker = getSticker();
     if (!sticker) return;
     const { x, y } = getMousePos(ev, isTouch);
     sticker.xCord = x - sticker.size / 2;
     sticker.yCord = y - sticker.size / 2;
-    renderCanvas();
 }
 
 function touchStart(ev) {
     canvasClick(ev, true);
-    if (isDragArea(ev, true)) startDrag();
+    if (isDragArea(ev, true)) {
+        ev.preventDefault();
+        startDrag();
+    }
     dragText(ev, true)
     dragSticker(ev, true)
 }
 
 function isDragging() {
-    return gData.isTextDrag || gData.isStickerDrag;
+    return gDragData.isTextDrag || gDragData.isStickerDrag;
 }
 
 function isDraggable(ev, isTouch) {
@@ -220,4 +222,16 @@ function setCanvasHeight(img) {
     (document.querySelector('canvas').height) = height;
     document.querySelector('.canvas-container').height = height;
 
+}
+
+function loadImageFromInput(ev) {
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        var img = new Image();
+        img.src = event.target.result;
+        img.onload = (data) => {
+            setLoadedImg(data.path[0].src)
+        }
+    }
+    reader.readAsDataURL(ev.target.files[0]);
 }

@@ -111,6 +111,8 @@ a {
     margin-bottom: 10px;
 }
 
+
+
 /* COMPONENTS */
 
 /* header */
@@ -347,9 +349,9 @@ canvas {
 
 .save-btn {
     position: absolute;
-    display: flex;
     bottom: -60px;
-    right: calc(50% - 90px);
+    width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 180px;
@@ -362,13 +364,11 @@ canvas {
     background-color: #44bb83;
 }
 
-
-
 /* gallery */
 
 .gallery {
     margin: 40px auto 0;
-    padding: 25px 13px 0 25px;
+    padding: 25px 13px 10px 25px;
     width: 1243px;
     border-radius: 10px;
     background-color: #383b42;
@@ -377,7 +377,7 @@ canvas {
 
 .gallery-nav {
     width: 100%;
-    padding: 0 0 45px 0;
+    padding: 0 0 20px 0;
 }
 
 .search-area {
@@ -414,8 +414,8 @@ canvas {
     flex-wrap: wrap;
     width: 536px;
     min-height: 50px;
-    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border-radius: 25px;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     background-color: rgba(135, 137, 141);
     color: #fefefe;
     margin-inline-end: 20px;
@@ -432,6 +432,25 @@ canvas {
     font-family: Poppins;
     font-size: 18px;
 }
+
+.upload {
+    border-radius: 25px;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    color: #fefefe;
+    margin-bottom:20px;
+    font-size: 1.3rem;
+    width: fit-content;
+    padding: 5px 10px;
+    background-color:rgb(91, 109, 145);
+}
+
+.file-input {
+    margin-inline-start: 10px;
+    font-size: 0.8em;
+    top: 0;
+    max-width: 250px;
+}
+
 
 .img-container {
     height: 100%;
@@ -450,6 +469,11 @@ canvas {
 .gallery .delete-btn {
     display: none;
 }
+
+.file-input{
+    display: none;
+}
+
 
 /* SAVED MEMES */
 .saved {
@@ -665,14 +689,13 @@ canvas {
     .canvas-container {
         margin-inline-end: 10px;
         max-width: 450px;
-        max-height: 450px;
     }
-
+    
     .text-control>* {
         height: 60px;
         margin: 5px;
     }
-
+    
     .text-control-sticker div img {
         width: 40px;
         height: 40px;
@@ -737,11 +760,15 @@ canvas {
         width: 100%;
     }
 
+    .main-content {
+        height: calc(100vh - 110px);
+    }
+
     .gallery,
     .saved {
         width: 100%;
         max-width: 480px;
-        padding: 10px 0;
+        padding: 10px;
         margin-top: 10px;
     }
 
@@ -792,6 +819,13 @@ canvas {
         height: 100%;
     }
 
+    .upload {
+        flex-direction: column;
+    }
+
+    .file-input {
+        max-width: 130px;
+    }
 
     .canvas-container img {
         display: none;
@@ -802,11 +836,13 @@ canvas {
     canvas {
         width: 100%;
         max-width: 400px;
-        max-height: 400px;
+        min-width: 300px;
     }
-
+    
     .controls-container {
+        height: fit-content;
         padding: 5px;
+        grid-gap: 10px;
     }
 
     .controls-container>*,
@@ -816,7 +852,7 @@ canvas {
     }
 
     .canvas-container {
-        margin-bottom: 80px;
+        margin: 0 0 80px;
     }
 
 
@@ -835,5 +871,9 @@ canvas {
     .text-control-sticker div img {
         max-width: 50px;
         max-height: 50px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
     }
 }

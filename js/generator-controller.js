@@ -8,6 +8,9 @@ function init() {
     setInitialCanvas(canvas);
     setSavedMemes();
     renderStickers();
+    canvas.addEventListener('mouseout', () => { 
+        onMouseUp();
+        document.body.style.cursor = 'auto' });
 }
 
 function renderImages(isSaved = false) {
@@ -24,17 +27,18 @@ function renderImages(isSaved = false) {
 
 function renderKeywords() {
     const keywords = getKeywordsForDisplay();
-    var strHTML = keywords.map(keyword => `
-    <span class="pointer" onclick="onWordClick('${keyword}')" style="font-size:${getKeywordValue(keyword) * 1.5 + 10}px">${keyword}</span>&nbsp&nbsp
-    `).join('');
+    var strHTML = keywords.map(keyword => {
+        let size = Math.min((getKeywordValue(keyword) * 1.5 + 10), 32);
+        return `<span class="pointer" onclick="onWordClick('${keyword}')" style="font-size:${size}px">${keyword}</span>&nbsp&nbsp`
+    }).join('');
     document.querySelector('.word-search').innerHTML = strHTML;
 }
 
 function renderCanvas(isHighlight = true) {
     const meme = getMeme()
     const imgId = meme.selectedImgId;
-    const image = (meme.isSaved) ? getSavedMemeById(imgId) : getImageById(imgId);
-    drawCanvas(image, isHighlight);
+    const image = (meme.isSaved) ? getSavedMemeById(imgId) : (meme.isLoaded) ? meme.loadedImg : getImageById(imgId);
+    drawCanvas(image.url, isHighlight);
 }
 
 function renderStickers() {
@@ -49,6 +53,7 @@ function renderStickers() {
 function onImgClick(imgId, isSaved = false) {
     showEditor();
     setIsSaved(isSaved);
+    setIsLoaded(false);
     resetGenerator();
     setSelectedImage(imgId);
     renderCanvas();
@@ -56,8 +61,12 @@ function onImgClick(imgId, isSaved = false) {
 }
 
 function onTextChange() {
-    const elTxt = document.querySelector('input.txt')
-    updateText(elTxt.value);
+    if (!getMeme().lines.length) setText();
+    else {
+        const elTxt = document.querySelector('input.txt')
+        updateText(elTxt.value);
+        renderCanvas();
+    }
 }
 
 function setInitText(xCord) {
@@ -67,42 +76,61 @@ function setInitText(xCord) {
 }
 
 function onUpdateSize(diff) {
-    setElementSize(diff);
+    setItemSize(diff);
+    renderCanvas();
 }
 
 function onUpdatePos(diff) {
     updatePosition(diff);
+    renderCanvas();
 }
 
 function onCanvasClick(ev) {
     canvasClick(ev);
+    renderCanvas();
 }
 
 function onCanvasTouch(ev) {
-    ev.preventDefault();
     touchStart(ev);
 }
 
 function setFocus() {
-    document.querySelector('input.txt').focus();
-    document.querySelector('input.txt').value = getLine().txt;
+    const elText = document.querySelector('.txt')
+    setTimeout(() => {
+        elText.setSelectionRange(0, elText.value.length);
+        elText.focus();
+    }, 0)
+}
+
+function onTextClick(el) {
+    el.setSelectionRange(0, el.value.length);
 }
 
 function onAddLine() {
     createLine();
+    setFocus();
+    renderCanvas();
+
 }
 
 function onSwitchLines() {
     switchLines();
+    renderCanvas();
 }
 
 function setText() {
     const txt = (getLine()) ? getLine().txt : '';
     document.querySelector('input.txt').value = txt;
+    setFocus();
 }
 
 function onDeleteLine() {
-    deleteElement();
+    deleteItem();
+    renderCanvas();
+}
+
+function onFillClick() {
+    document.querySelector('.fill-color').click();
 }
 
 function onDownload() {
@@ -113,7 +141,7 @@ function onDownload() {
 }
 
 function onSubmit(elForm, ev) {
-    uploadImg(elForm, ev)
+    uploadImg(elForm, ev);
 }
 
 function toggleModal() {
@@ -122,25 +150,31 @@ function toggleModal() {
 
 function onFontSelect({ value }) {
     setFont(value);
+    renderCanvas();
 }
 
 function onSetAlign(align) {
     setAlign(align);
+    renderCanvas();
 }
 
 function onStroke() {
     toggleStroke();
+    renderCanvas();
 }
 
 function onFillChange({ value }) {
     setColor(value);
+    renderCanvas();
 }
 
-function onMouseDown(ev) {
+function onCanvasClick(ev) {
+    canvasClick(ev);
     if (isDragArea(ev, false)) {
         startDrag();
         document.body.style.cursor = 'grabbing'
     } else document.body.style.cursor = 'auto';
+    renderCanvas();
 }
 
 function onMouseUp() {
@@ -148,24 +182,30 @@ function onMouseUp() {
 }
 
 function onDrag(ev, isTouch) {
-    updatecursor(ev, isTouch);
+    updateCursor(ev, isTouch);
     dragText(ev, isTouch);
     dragSticker(ev, isTouch);
+    renderCanvas();
 }
 
 function onAddSticker(id) {
     addSticker(id);
+    renderCanvas();
 }
 
 function onSearch() {
-    const searchValue = document.querySelector('.gallery-search').value;
-    setFilter(searchValue.toLowerCase());
+    const searchValue = document.querySelector('.gallery-search').value.toLowerCase();
+    updateSearchWordValue(searchValue);
+    setFilter(searchValue);
+    renderKeywords();
 }
 
 function onWordClick(word) {
+    updateSearchWordValue(word);
     const keywords = getKeywords();
     keywords[word]++;
     setFilter(word);
+    setSearchArea(word);
     renderKeywords();
 }
 
@@ -182,11 +222,20 @@ function onDeleteMeme(id) {
     deleteSavedMeme(id);
 }
 
-function updatecursor(ev, isTouch) {
+function onImgInput(ev) {
+    loadImageFromInput(ev)
+    showEditor();
+}
+
+function updateCursor(ev, isTouch) {
     if (isDragging()) return;
     if (isDragArea(ev, isTouch)) document.body.style.cursor = 'grab';
     else if (isDraggable(ev, isTouch)) document.body.style.cursor = 'pointer';
     else document.body.style.cursor = 'auto';
+}
+
+function setSearchArea(word) {
+    document.querySelector('.gallery-search').value = word;
 }
 
 function onNavClick(target) {
