@@ -2,10 +2,10 @@
 
 function init() {
     const canvas = document.querySelector('#meme-canvas');
+    setSavedMemes();
     renderImages();
     renderKeywords();
     setInitialCanvas(canvas);
-    setSavedMemes();
     renderStickers();
     canvas.addEventListener('mouseout', () => { 
         onMouseUp();
@@ -14,7 +14,7 @@ function init() {
 
 function renderImages(isSaved = false) {
     const imgs = (isSaved) ? getSavedMemes() : getImagesForGallery();
-    var strHTML = imgs.map(img => ` <span>
+    var strHTML = (!isSaved && !imgs.length) ? '<span>There are no images that match your search</span>' : imgs.map(img => ` <span>
     <img class="img pointer" src=${img.url} alt="" onclick="onImgClick(${img.id},${isSaved})">
     <button class="delete-btn pointer" onclick="onDeleteMeme(${img.id})">x</button>
     </span>
@@ -22,6 +22,8 @@ function renderImages(isSaved = false) {
     ).join('');
     if (!isSaved) document.querySelector('.img-container').innerHTML = strHTML;
     else document.querySelector('.saved-container').innerHTML = strHTML;
+    updateSavedNum();
+
 }
 
 function renderKeywords() {
@@ -47,6 +49,10 @@ function renderStickers() {
     <img class="pointer" src="./imgs/stickers/${sticker.id}.png" onclick="onAddSticker(${sticker.id})">
     `).join('');
     document.querySelector('.sticker-container').innerHTML = strHTML;
+}
+
+function updateSavedNum(){
+    document.querySelector('.saved-num').innerText = `(${getSavedMemes().length})`;
 }
 
 function onImgClick(imgId, isSaved = false) {

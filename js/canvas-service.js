@@ -44,19 +44,20 @@ function drawCanvas(url, isHighlight = true) {
         setCanvasHeight(img);
         gCtx.drawImage(img, 0, 0, gCanvas.width, height);
         highlightItem(isHighlight);
-        lines.forEach(line => {
-            updateTextSettings(line);
-            line.width = gCtx.measureText(line.txt).width;
-            gCtx.fillStyle = line.color;
-            drawText(line.txt, line.xCord, line.yCord, line.isStroke)
-        })
+            lines.forEach(line => {
+                updateTextSettings(line);
+                line.width = gCtx.measureText(line.txt).width;
+                gCtx.fillStyle = line.color;
+                drawText(line.txt, line.xCord, line.yCord, line.isStroke)
+            })
+        }
         stickers.forEach(sticker => {
             let stickerImg = new Image();
             stickerImg.src = sticker.url;
             gCtx.drawImage(stickerImg, sticker.xCord, sticker.yCord, sticker.size, sticker.size)
         })
     }
-}
+
 
 function drawText(text, x, y, isStroke) {
     gCtx.fillText(text, x, y)

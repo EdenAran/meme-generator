@@ -154,6 +154,10 @@ a {
     color: #21ac91;
 }
 
+ .saved-num{
+    font-size: 0.7em;
+}
+
 /* generator */
 
 .meme-editor {
@@ -366,7 +370,7 @@ canvas {
     width: 1243px;
     border-radius: 10px;
     background-color: #383b42;
-    height: 100%;
+    height: calc(100vh - 150px);
 }
 
 .gallery-nav {
@@ -452,6 +456,14 @@ canvas {
     width: 100%;
     padding: 0 5px;
     justify-content: space-between;
+    text-align: center;
+}
+
+.img-container span{
+    display: block;
+    margin: auto;
+    font-size: 1.5rem;
+    color: #fefefe;
 }
 
 .img-container img {
